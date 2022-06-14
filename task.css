@@ -152,8 +152,8 @@ body {
 
 .submit {
     cursor: pointer;
-    padding-left: 0.8rem;
-    border-left: 2px solid rgba(105, 177, 166, 0.3);
+    padding-left: 1rem;
+    border-left: 2px solid rgba(105, 177, 177, 0.3);
     
     position: absolute;
     top: 33%;
