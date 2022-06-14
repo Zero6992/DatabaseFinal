@@ -56,22 +56,22 @@ if (!empty($urlParams['searchText'])) {
 			$sqlMethod = '=';
 			break;
 	}
-		// 分頁數
-		$sql_count = sprintf(
-			"SELECT count(*) AS totalRows from `project`.`task` where %s %s %s",
-			$urlParams['searchType'],
-			$sqlMethod,
-			$urlParams['searchText']
-		);
-		$sth_count = $conn->query($sql_count);
-		$result_count = $sth_count->fetch_assoc();
-		$totalRows = $result_count['totalRows'];
-		$totalPages = ceil($totalRows / PAGE_LIMIT);
-	
-		//抓各頁資料
-		$page = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
-		$previousPage = (($page - 1) < 1) ? 1 : ($page - 1);
-		$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
+	// 分頁數
+	$sql_count = sprintf(
+		"SELECT count(*) AS totalRows from `project`.`task` where %s %s %s",
+		$urlParams['searchType'],
+		$sqlMethod,
+		$urlParams['searchText']
+	);
+	$sth_count = $conn->query($sql_count);
+	$result_count = $sth_count->fetch_assoc();
+	$totalRows = $result_count['totalRows'];
+	$totalPages = ceil($totalRows / PAGE_LIMIT);
+
+	//抓各頁資料
+	$page = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
+	$previousPage = (($page - 1) < 1) ? 1 : ($page - 1);
+	$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
 	$sql =  sprintf(
 		"select * from `project`.`task` where %s %s %s LIMIT %s, %s",
@@ -81,7 +81,7 @@ if (!empty($urlParams['searchText'])) {
 		($page - 1) * PAGE_LIMIT,
 		PAGE_LIMIT
 	);
-	echo ("$sql");
+
 	$result = $conn->query($sql);
 } else {
 
