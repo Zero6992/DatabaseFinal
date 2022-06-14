@@ -19,7 +19,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-if (isset($_POST['task_type']) && isset($_POST['location']) && isset($_POST['time']) && isset($_POST['problem']) ) {
+
+if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['time']) || empty($_POST['problem']) ) {
+	echo "資料不完全!!!<br> <a href='return.html'>返回主頁</a>";
+}else{
 	$task_type = $_POST['task_type'];
 	$location = $_POST['location'];
 	$time = $_POST['time'];
@@ -32,11 +35,8 @@ if (isset($_POST['task_type']) && isset($_POST['location']) && isset($_POST['tim
 	} else {
 		echo "<h2 align='center'><font color='antiquewith'>回報失敗!!</font></h2>";
 	}
-
-}else{
-	echo "資料不完全";
 }
 				
-// 123
+
 ?>
 

@@ -18,7 +18,9 @@ if (!$conn->set_charset("utf8")) {
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-if (isset($_POST['userName']) && isset($_POST['userMail']) && isset($_POST['userAccount']) && isset($_POST['userPassword'])) {
+if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['userAccount']) || empty($_POST['userPassword'])) {
+	echo "資料不完全!<br> <a href='./signUp.html'>重新註冊</a>";
+}else{
 	$userName = $_POST['userName'];
 	$userMail = $_POST['userMail'];
 	$userAccount = $_POST['userAccount'];
@@ -32,8 +34,6 @@ if (isset($_POST['userName']) && isset($_POST['userMail']) && isset($_POST['user
 		echo "<h2 align='center'><font color='antiquewith'>新增失敗!!</font></h2>";
 	}
 
-}else{
-	echo "資料不完全";
 }
 				
 ?>
