@@ -10,7 +10,7 @@
 		}
 
 		.mainTitle {
-			cursor: default;
+			cursor: pointer;
 			color: #127a7a;
 			font-size: 2.8rem;
 			padding: 0.2rem;
@@ -22,7 +22,7 @@
 
 		.returnForm {
 			display: flex;
-			margin-bottom: 20rem;
+			margin-bottom: 30rem;
 			justify-content: center;
 			align-items: center;
 		}
@@ -33,6 +33,19 @@
 			float: right;
 			margin-top: 1rem;
 			border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
+		}
+
+		.admin {
+			/* visibility: hidden; */
+			/*看使用者權限*/
+			width: auto;
+			float: right;
+			margin-top: 1rem;
+			border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
+		}
+
+		.admin a {
+			color: #720017;
 		}
 
 		li {
@@ -138,41 +151,49 @@
 
 <body>
 
-
-	<h1 class="mainTitle">師大環境通報系統</h1>
+	<a href="./return.html">
+		<h1 class="mainTitle">師大環境通報系統</h1>
+	</a>
 	<nav>
 		<ul class="topBar">
-			<li><a href="#">案件查詢</a></li>
+			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="#">回報案件追蹤</a></li>
-			<li><a href="#">聯絡我們</a></li>
+			<li><a href="./contact.html">聯絡我們</a></li>
 			<li><a href="./profile.html">個人資料</a></li>
-			<li><a href="./signIn.html" onclick="">登出</a></li>
+			<li><a href="./logout.php" onclick="">登出</a></li>
+		</ul>
+		<ul class="admin">
+			<li><a href="#">管理案件</a></li>
+			<li><a href="#">管理使用者</a></li>
+			<li><a href="#">管理公司</a></li>
 		</ul>
 	</nav>
 
 	<p class="returnForm">
 	<form class="ReturnBar" action="return.php" method="post">
-		<h1 class="bigTitle">聯絡管道</h1>
 
-		<p>聯絡信箱</p>
-		<p>123456789S@gapps.ntnu.edu.tw</p>
-		<p> </p>
+		<div class="canva">
+			<h1 class="bigTitle">聯絡資訊</h1>
 
-
-		<p>聯絡電話</p>
-		<p>02-12345678</p>
-		<p> </p>
+			<p>聯絡信箱</p>
+			<p>123456789S@gapps.ntnu.edu.tw</p>
+			<p> </p>
 
 
-		<p>辦公室位址</p>
-		<p>公館校區 綜合大樓 校務辦公室</p>
-		<p></p>
+			<p>聯絡電話</p>
+			<p>02-12345678</p>
+			<p> </p>
 
-		<a href="./return.html" class="button">返回</a>
+
+			<p>辦公室位址</p>
+			<p>公館校區 綜合大樓 校務辦公室</p>
+		</div>
+
+
 
 	</form>
 
-
+	</p>
 
 
 </body>

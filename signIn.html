@@ -81,10 +81,10 @@
 		<h1 class="bigTitle">師大環境通報系統</h1>
 
 		<p>帳號</p>
-		<input class="inputText" placeholder="請輸入帳號......" type="text" name="StuNum" />
+		<input class="inputText" placeholder="請輸入帳號......" type="text" name="account" />
 
 		<p>密碼</p>
-		<input class="inputText" placeholder="請輸入密碼......" type="password" name="passwd" />
+		<input class="inputText" placeholder="請輸入密碼......" type="password" name="password" />
 
 		<p>
 			<input style="margin-right: 2rem" class="button" type="submit" value="登入" onclick="signIn()" />
@@ -95,7 +95,7 @@
 
 	<script>
 		function signIn() {
-			document.signInForm.action = html
+			document.signInForm.action = "./signIn.php"
 		}
 		function signUp() {
 			document.signInForm.action = "./signUp.html"

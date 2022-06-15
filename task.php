@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 // ******** update your personal settings ******** 
 $servername = "localhost";
 $username = "root";
@@ -22,6 +22,7 @@ if ($conn->connect_error) {
 
 
 define("PAGE_LIMIT", 10);
+
 
 
 // 將參數存為陣列，好處理
@@ -104,24 +105,10 @@ if (!empty($urlParams['searchText'])) {
 		PAGE_LIMIT
 	);
 	$result = $conn->query($sql);
+	
 }
 
 
-// 狀態
-
-
-/* if($result -> num_rows === 0){
-	echo "NO result!";
-	exit;
-} 
-
-/* echo "<ul>";
-while($test = $result -> fetch_assoc()){
-	echo "<li>";
-	echo 'task_type:'. $test['task_type'];
-	echo "</li>";
-}
-echo "</ul>";*/
 ?>
 
 <!DOCTYPE html>
@@ -142,11 +129,11 @@ echo "</ul>";*/
 		</a>
 		<nav>
 			<ul class="topBar">
-				<li><a href="#">案件查詢</a></li>
+				<li><a href="./task.php">案件查詢</a></li>
 				<li><a href="#">回報案件追蹤</a></li>
 				<li><a href="#">聯絡我們</a></li>
 				<li><a href="#">個人資料</a></li>
-				<li><a href="./signIn.html" onclick="">登出</a></li>
+				<li><a href="./logout.php" onclick="">登出</a></li>
 			</ul>
 			<ul class="admin">
 				<li><a href="#">管理案件</a></li>

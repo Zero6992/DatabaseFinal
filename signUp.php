@@ -19,7 +19,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['userAccount']) || empty($_POST['userPassword'])) {
-	echo "資料不完全!<br> <a href='./signUp.html'>重新註冊</a>";
+	function_alert("資料不完全!請重新註冊!!");
 }else{
 	$userName = $_POST['userName'];
 	$userMail = $_POST['userMail'];
@@ -29,11 +29,31 @@ if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['user
 	$insert_sql = "INSERT INTO USER (user_type,NAME,mail,ACCOUNT,PASSWORD) VALUES(1,'$userName','$userMail','$userAccount','$userPassword');";	// ******** update your personal settings ******** 
 	
 	if ($conn->query($insert_sql) === TRUE) {
-		echo "新增成功!!<br> <a href='./signIn.html'>返回主頁</a>";
+		function_sucess("註冊成功!!");
 	} else {
-		echo "<h2 align='center'><font color='antiquewith'>新增失敗!!</font></h2>";
+		function_alert("該帳號或信箱已有人使用!");
 	}
 
+}
+mysqli_close($conn);
+
+function function_sucess($message) { 
+      
+    // Display the alert box  
+    echo "<script>alert('$message');
+     window.location.href='SignIn.html';
+    </script>"; 
+    
+    return false;
+}
+function function_alert($message) { 
+      
+    // Display the alert box  
+    echo "<script>alert('$message');
+     window.location.href='signUp.html';
+    </script>"; 
+    
+    return false;
 }
 				
 ?>

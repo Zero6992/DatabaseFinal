@@ -1,5 +1,39 @@
-<html>
+<?php
+session_start();
+// ******** update your personal settings ******** 
+$servername = "localhost";
+$username = "root";
+$password = "wendy1102";
+$dbname = "project";
 
+// Connecting to and selecting a MySQL database
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+
+if (!$conn->set_charset("utf8")) {
+	printf("Error loading character set utf8: %s\n", $conn->error);
+	exit();
+}
+
+// Check connection
+if ($conn->connect_error) {
+	die("Connection failed: " . $conn->connect_error);
+}
+
+$user_id = $_SESSION['user_id'];
+
+$sql =  sprintf(
+	"SELECT * FROM `project`.`user` WHERE `user_id`= %s",
+	$user_id
+);
+
+	$result=mysqli_query($conn,$sql);
+	$read=mysqli_fetch_assoc($result);
+
+
+?>
+
+<!DOCTYPE html>
 <head>
 	<title>HomePage</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -10,7 +44,7 @@
 		}
 
 		.mainTitle {
-			cursor: default;
+			cursor: pointer;
 			color: #127a7a;
 			font-size: 2.8rem;
 			padding: 0.2rem;
@@ -22,7 +56,7 @@
 
 		.returnForm {
 			display: flex;
-			margin-bottom: 20rem;
+			margin-bottom: 30rem;
 			justify-content: center;
 			align-items: center;
 		}
@@ -33,6 +67,19 @@
 			float: right;
 			margin-top: 1rem;
 			border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
+		}
+
+		.admin {
+			/* visibility: hidden; */
+			/*看使用者權限*/
+			width: auto;
+			float: right;
+			margin-top: 1rem;
+			border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
+		}
+
+		.admin a {
+			color: #720017;
 		}
 
 		li {
@@ -71,9 +118,13 @@
 			border-radius: 2rem;
 			box-shadow: 14px 20px 30px #04010c;
 			color: aliceblue;
-			width: 700;
+			width: 40rem;
+			position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -30%);
 			padding: 2rem;
-			margin: auto;
+		
 		}
 
 		.ReturnBar p {
@@ -83,7 +134,6 @@
 			font-weight: bolder;
 
 		}
-
 
 		.inputText {
 			font-size: 1.5rem;
@@ -113,62 +163,55 @@
 			outline: none
 		}
 
+		.ProfileTitle{
+			
+			color: #f2a830;
 
-		.button {
-
-			width: 8rem;
-			font-size: 2.2rem;
-			background-color: #07000E;
-			color: aliceblue;
-			border-radius: 7%;
-			box-shadow: 4px 3px 4px rgb(63, 134, 192);
-			font-weight: bold;
-
-		}
-
-		.button:hover {
-			color: #e76f45;
-			background-color: aliceblue;
-			box-shadow: 4px 3px 4px rgb(139, 28, 28);
-			transition: 1s;
-			cursor: pointer;
 		}
 	</style>
 </head>
 
 <body>
 
-
-	<h1 class="mainTitle">師大環境通報系統</h1>
+	<a href="./return.html">
+		<h1 class="mainTitle">師大環境通報系統</h1>
+	</a>
 	<nav>
 		<ul class="topBar">
-			<li><a href="#">案件查詢</a></li>
+			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="#">回報案件追蹤</a></li>
 			<li><a href="./contact.html">聯絡我們</a></li>
-			<li><a href="#">個人資料</a></li>
-			<li><a href="./signIn.html" onclick="">登出</a></li>
+			<li><a href="./profile.html">個人資料</a></li>
+			<li><a href="./logout.php" onclick="">登出</a></li>
+		</ul>
+		<ul class="admin">
+			<li><a href="#">管理案件</a></li>
+			<li><a href="#">管理使用者</a></li>
+			<li><a href="#">管理公司</a></li>
 		</ul>
 	</nav>
 
+
 	<p class="returnForm">
-	<form class="ReturnBar" action="return.php" method="post">
+	<div class="ReturnBar">
+
 		<h1 class="bigTitle">個人資料</h1>
 
 		<p>名稱</p>
-		<p>123</p>
+		<p class="ProfileTitle"><?php print $read['name'] ?></p>
 		<p> </p>
 
 		<p>信箱</p>
-		<p>123456789S@gapps.ntnu.edu.tw</p>
+		<p class="ProfileTitle"><?php print $read['mail'] ?></p>
 		<p> </p>
 
 		<p>帳號</p>
-		<p>123456789S</p>
+		<p class="ProfileTitle"><?php print $read['account'] ?></p>
 		<p></p>
 
-		<a href="./return.html" class="button">返回</a>
 
-	</form>
+
+	</div>
 
 
 
