@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
 $username = "root";
@@ -19,10 +19,9 @@ if (!$conn->set_charset("utf8")) {
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
-	function_alert('您已登出!請重新登入!');
-    header("location: signIn.html");
-    exit;  
+
+if(!isset($_SESSION["loggedin"])){
+	function_notLogIn('您已登出!請重新登入!');
 }
 
 if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['time']) || empty($_POST['problem'])) {
@@ -42,6 +41,7 @@ if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['tim
 		function_alert('回報失敗!!');
 	}
 }
+
 
 
 function function_alert($message)

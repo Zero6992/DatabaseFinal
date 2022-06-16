@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
 $username = "root";
@@ -20,7 +21,9 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-
+if(!isset($_SESSION["loggedin"])){
+	function_notLogIn("您已登出!請重新登入!");
+}
 define("PAGE_LIMIT", 10);
 
 

@@ -143,8 +143,6 @@ body {
     transition: 1s;
 }
 
-
-
 .board {
     
     overflow: auto;
@@ -156,11 +154,8 @@ body {
     box-shadow: 11px 3px 30px #4f5b66;
 }
 .inMid{
-    width: 95%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -30%);
+    margin: auto;
+    margin-top: 30rem;
 }
 .board tr {
     border-top: 0.1rem solid rgb(109, 93, 93);
