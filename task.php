@@ -53,10 +53,11 @@ if (!empty($urlParams['searchText'])) {
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'user_id':
+		case 'user_ID':
 			$sqlMethod = '=';
 			break;
 	}
+
 	// 分頁數
 	$sql_count = sprintf(
 		"SELECT count(*) AS totalRows from `project`.`task` where %s %s %s",
@@ -64,6 +65,7 @@ if (!empty($urlParams['searchText'])) {
 		$sqlMethod,
 		$urlParams['searchText']
 	);
+	echo($sql_count);
 	$sth_count = $conn->query($sql_count);
 	$result_count = $sth_count->fetch_assoc();
 	$totalRows = $result_count['totalRows'];
@@ -82,7 +84,7 @@ if (!empty($urlParams['searchText'])) {
 		($page - 1) * PAGE_LIMIT,
 		PAGE_LIMIT
 	);
-
+	echo($sql);
 	$result = $conn->query($sql);
 } else {
 
@@ -129,11 +131,11 @@ if (!empty($urlParams['searchText'])) {
 		</a>
 		<nav>
 			<ul class="topBar">
-				<li><a href="./task.php">案件查詢</a></li>
-				<li><a href="#">回報案件追蹤</a></li>
-				<li><a href="#">聯絡我們</a></li>
-				<li><a href="#">個人資料</a></li>
-				<li><a href="./logout.php" onclick="">登出</a></li>
+			<li><a href="./task.php">案件查詢</a></li>
+			<li><a href="./track.php">回報案件追蹤</a></li>
+			<li><a href="./contact.html">聯絡我們</a></li>
+			<li><a href="./profile.php">個人資料</a></li>
+			<li><a href="./logout.php" >登出</a></li>
 			</ul>
 			<ul class="admin">
 				<li><a href="#">管理案件</a></li>

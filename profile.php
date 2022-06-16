@@ -97,7 +97,7 @@ $sql =  sprintf(
 		}
 
 		a:hover {
-			font-size: 1.8rem;
+			
 			color: #B9e5f3;
 			background-color: black;
 			background-size: 50% 30%;
@@ -178,11 +178,11 @@ $sql =  sprintf(
 	</a>
 	<nav>
 		<ul class="topBar">
-			<li><a href="./task.php">案件查詢</a></li>
-			<li><a href="#">回報案件追蹤</a></li>
+		<li><a href="./task.php">案件查詢</a></li>
+			<li><a href="./track.php">回報案件追蹤</a></li>
 			<li><a href="./contact.html">聯絡我們</a></li>
-			<li><a href="./profile.html">個人資料</a></li>
-			<li><a href="./logout.php" onclick="">登出</a></li>
+			<li><a href="./profile.php">個人資料</a></li>
+			<li><a href="./logout.php" >登出</a></li>
 		</ul>
 		<ul class="admin">
 			<li><a href="#">管理案件</a></li>

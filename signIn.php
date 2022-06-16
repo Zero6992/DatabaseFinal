@@ -21,6 +21,11 @@ $account =$_POST["account"];
 $password=$_POST["password"];
 
 
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+    header("location: return.php");
+    exit; 
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $sql = "SELECT * FROM user WHERE account ='".$account."'";
 

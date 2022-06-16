@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // ******** update your personal settings ******** 
 $servername = "localhost";
@@ -10,33 +11,44 @@ $dbname = "project";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!$conn->set_charset("utf8")) {
-    printf("Error loading character set utf8: %s\n", $conn->error);
-    exit();
+	printf("Error loading character set utf8: %s\n", $conn->error);
+	exit();
 }
 
 // Check connection
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
+	die("Connection failed: " . $conn->connect_error);
+}
+if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === false){
+	function_alert('您已登出!請重新登入!');
+    header("location: signIn.html");
+    exit;  
+}
 
-
-if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['time']) || empty($_POST['problem']) ) {
-	echo "資料不完全!!!<br> <a href='return.html'>返回主頁</a>";
-}else{
+if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['time']) || empty($_POST['problem'])) {
+	function_alert('資料不完全!!!');
+} else {
 	$task_type = $_POST['task_type'];
 	$location = $_POST['location'];
 	$time = $_POST['time'];
 	$problem = $_POST['problem'];
+	$user_id = $_SESSION['user_id'];
 
-	$insert_sql = "INSERT INTO TASK (task_type,location,time,problem) VALUES('$task_type','$location','$time','$problem');";	// ******** update your personal settings ******** 
-	
+	$insert_sql = "INSERT INTO TASK (task_type,location,time,problem,user_id) VALUES('$task_type','$location','$time','$problem','$user_id');";	// ******** update your personal settings ******** 
+
 	if ($conn->query($insert_sql) === TRUE) {
-		echo "回報成功!!<br> <a href='return.html'>返回主頁</a>";
+		function_alert('回報成功!!');
 	} else {
-		echo "<h2 align='center'><font color='antiquewith'>回報失敗!!</font></h2>";
+		function_alert('回報失敗!!');
 	}
 }
-				
 
-?>
 
+function function_alert($message)
+{
+	// Display the alert box  
+	echo "<script>alert('$message');
+     window.location.href='return.html';
+    </script>";
+	return false;
+}
