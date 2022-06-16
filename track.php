@@ -21,7 +21,7 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-if(!isset($_SESSION["loggedin"])){
+if (!isset($_SESSION["loggedin"])) {
 	function_notLogIn("您已登出!請重新登入!");
 }
 define("PAGE_LIMIT", 10);
@@ -75,16 +75,16 @@ $result = $conn->query($sql);
 <body>
 
 	<div class="Pboard">
-		<a href="./return.html">
+		<a href="./homepage.php">
 			<h1 class="mainTitle">師大環境通報系統</h1>
 		</a>
 		<nav>
 			<ul class="topBar">
-			<li><a href="./task.php">案件查詢</a></li>
-			<li><a href="./track.php">回報案件追蹤</a></li>
-			<li><a href="./contact.html">聯絡我們</a></li>
-			<li><a href="./profile.php">個人資料</a></li>
-			<li><a href="./logout.php" >登出</a></li>
+				<li><a href="./task.php">案件查詢</a></li>
+				<li><a href="./track.php">回報案件追蹤</a></li>
+				<li><a href="./contact.html">聯絡我們</a></li>
+				<li><a href="./profile.php">個人資料</a></li>
+				<li><a href="./logout.php">登出</a></li>
 			</ul>
 			<ul class="admin">
 				<li><a href="#">管理案件</a></li>
@@ -95,6 +95,7 @@ $result = $conn->query($sql);
 	</div>
 
 	<div class="inMid">
+
 		<table width="100%" class="board">
 			<thead>
 				<tr align="center">
@@ -163,7 +164,7 @@ $result = $conn->query($sql);
 			document.forms[0].submit();
 		}
 	</script>
-
+	</div>
 </body>
 
 </html>

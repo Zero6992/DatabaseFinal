@@ -1,38 +1,13 @@
 <?php
-session_start();
-// ******** update your personal settings ******** 
-$servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+	session_start();
 
-// Connecting to and selecting a MySQL database
-$conn = new mysqli($servername, $username, $password, $dbname);
+	$admin = 'none';
+	
 
-
-if (!$conn->set_charset("utf8")) {
-	printf("Error loading character set utf8: %s\n", $conn->error);
-	exit();
-}
-
-// Check connection
-if ($conn->connect_error) {
-	die("Connection failed: " . $conn->connect_error);
-}
-
-$user_id = $_SESSION['user_id'];
-
-$sql =  sprintf(
-	"SELECT * FROM `project`.`user` WHERE `user_id`= %s",
-	$user_id
-);
-
-	$result=mysqli_query($conn,$sql);
-	$read=mysqli_fetch_assoc($result);
-
-
+	if ($_SESSION['user_type'] == 2){
+		$admin == 'unset';
+	}
 ?>
-
 <!DOCTYPE html>
 <head>
 	<title>HomePage</title>
@@ -44,6 +19,7 @@ $sql =  sprintf(
 		}
 
 		.mainTitle {
+		
 			cursor: pointer;
 			color: #127a7a;
 			font-size: 2.8rem;
@@ -71,8 +47,7 @@ $sql =  sprintf(
 		}
 
 		.admin {
-			/* visibility: hidden; */
-			/*看使用者權限*/
+			display:<?=$admin?>;
 			width: auto;
 			float: right;
 			margin-top: 1rem;
@@ -117,7 +92,7 @@ $sql =  sprintf(
 			border-radius: 2rem;
 			box-shadow: 14px 20px 30px #04010c;
 			color: aliceblue;
-			width: 40rem;
+			width: 45rem;
 			padding: 2rem;
 			margin: auto;
 			margin-top: 30rem;

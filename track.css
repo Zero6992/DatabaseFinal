@@ -50,6 +50,11 @@ body {
     color: #720017;
 }
 
+.inMid{
+    position: absolute;
+    width: 98%;
+    margin-top: 30rem;
+}
 .Pboard li {
     font-size: 1.5rem;
     font-weight: bold;
@@ -152,11 +157,10 @@ body {
     color: rgb(238, 231, 231);
     cursor: default;
     box-shadow: 11px 3px 30px #4f5b66;
+
+  
 }
-.inMid{
-    margin: auto;
-    margin-top: 30rem;
-}
+
 .board tr {
     border-top: 0.1rem solid rgb(109, 93, 93);
 }

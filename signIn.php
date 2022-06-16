@@ -22,7 +22,7 @@ $password=$_POST["password"];
 
 
 if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: return.php");
+    header("location: homepage.php");
     exit; 
 }
 
@@ -41,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION["user_type"] = $check["user_type"];
 
     
-        header("location:return.html");
+        header("location:homepage.php");
     }else{
             function_alert("帳號或密碼錯誤"); 
         }

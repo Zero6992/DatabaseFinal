@@ -27,13 +27,14 @@ $sql =  sprintf(
 	$user_id
 );
 
-	$result=mysqli_query($conn,$sql);
-	$read=mysqli_fetch_assoc($result);
+$result = mysqli_query($conn, $sql);
+$read = mysqli_fetch_assoc($result);
 
 
 ?>
 
 <!DOCTYPE html>
+
 <head>
 	<title>HomePage</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -97,7 +98,7 @@ $sql =  sprintf(
 		}
 
 		a:hover {
-			
+
 			color: #B9e5f3;
 			background-color: black;
 			background-size: 50% 30%;
@@ -122,7 +123,7 @@ $sql =  sprintf(
 			margin: auto;
 			margin-top: 30rem;
 			padding: 2rem;
-		
+
 		}
 
 		.ReturnBar p {
@@ -161,25 +162,25 @@ $sql =  sprintf(
 			outline: none
 		}
 
-		.ProfileTitle{
+		.ProfileTitle {
 			color: #f2a830;
-			font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 		}
 	</style>
 </head>
 
 <body>
 
-	<a href="./return.html">
+	<a href="./homepage.php">
 		<h1 class="mainTitle">師大環境通報系統</h1>
 	</a>
 	<nav>
 		<ul class="topBar">
-		<li><a href="./task.php">案件查詢</a></li>
+			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="./track.php">回報案件追蹤</a></li>
 			<li><a href="./contact.html">聯絡我們</a></li>
 			<li><a href="./profile.php">個人資料</a></li>
-			<li><a href="./logout.php" >登出</a></li>
+			<li><a href="./logout.php">登出</a></li>
 		</ul>
 		<ul class="admin">
 			<li><a href="#">管理案件</a></li>
