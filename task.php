@@ -31,9 +31,9 @@ $admin = 'none';
 if ($_SESSION['user_type'] == 2) {
 	$admin = 'initial';
 }
-$topMargin = '20rem';
-if($_SESSION['user_type'] == 2){
-	$topMargin = '27rem';
+$topMargin = '15rem';
+if ($_SESSION['user_type'] == 2) {
+	$topMargin = '24rem';
 }
 
 // 將參數存為陣列，好處理
@@ -132,8 +132,12 @@ if (!empty($urlParams['searchText'])) {
 	<link rel="stylesheet" href="./task.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
-		.admin{
+		.admin {
 			display: <?= $admin ?>;
+		}
+
+		.searchGroup {
+			top: <?= $topMargin ?>;
 		}
 	</style>
 </head>
