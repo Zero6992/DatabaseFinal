@@ -2,5 +2,5 @@
 session_start(); 
 $_SESSION = array(); 
 session_destroy(); 
-header('location:signIn.html'); 
+header('location:index.html'); 
 ?>

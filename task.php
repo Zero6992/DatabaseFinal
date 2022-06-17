@@ -3,9 +3,9 @@ session_start();
 include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+$username = "team10";
+$password = "Ce8l68";
+$dbname = "team10";
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -68,7 +68,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 分頁數
 	$sql_count = sprintf(
-		"SELECT count(*) AS totalRows from `project`.`task` where %s %s %s",
+		"SELECT count(*) AS totalRows from `team10`.`task` where %s %s %s",
 		$urlParams['searchType'],
 		$sqlMethod,
 		$urlParams['searchText']
@@ -85,7 +85,7 @@ if (!empty($urlParams['searchText'])) {
 	$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
 	$sql =  sprintf(
-		"select * from `project`.`task` where %s %s %s LIMIT %s, %s",
+		"select * from `team10`.`task` where %s %s %s LIMIT %s, %s",
 		$urlParams['searchType'],
 		$sqlMethod,
 		$urlParams['searchText'],
@@ -97,7 +97,7 @@ if (!empty($urlParams['searchText'])) {
 } else {
 
 	// 分頁數
-	$sql_count = "SELECT count(*) AS totalRows FROM `project`.`task`";
+	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task`";
 	$sth_count = $conn->query($sql_count);
 	$result_count = $sth_count->fetch_assoc();
 	$totalRows = $result_count['totalRows'];
@@ -110,7 +110,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 讀取所有資料
 	$sql =  sprintf(
-		"select * from `project`.`task` LIMIT %s, %s",
+		"select * from `team10`.`task` LIMIT %s, %s",
 		($page - 1) * PAGE_LIMIT,
 		PAGE_LIMIT
 	);

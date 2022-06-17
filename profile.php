@@ -4,9 +4,9 @@ session_start();
 
 // ******** update your personal settings ******** 
 $servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+$username = "team10";
+$password = "Ce8l68";
+$dbname = "team10";
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -34,7 +34,7 @@ if ($_SESSION['user_type'] == 2) {
 $user_id = $_SESSION['user_id'];
 
 $sql =  sprintf(
-	"SELECT * FROM `project`.`user` WHERE `user_id`= %s",
+	"SELECT * FROM `team10`.`user` WHERE `user_id`= %s",
 	$user_id
 );
 

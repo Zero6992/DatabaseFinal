@@ -2,9 +2,9 @@
 
 // ******** update your personal settings ******** 
 $servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+$username = "team10";
+$password = "Ce8l68";
+$dbname = "team10";
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -57,7 +57,7 @@ function function_alert($message) {
       
     // Display the alert box  
     echo "<script>alert('$message');
-     window.location.href='signIn.html';
+     window.location.href='index.html';
     </script>"; 
     return false;
 }

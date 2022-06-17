@@ -3,7 +3,7 @@
  {
      // Display the alert box  
      echo "<script>alert('$message');
-      window.location.href='signIn.html';
+      window.location.href='index.html';
      </script>";
      return false;
  }

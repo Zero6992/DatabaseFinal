@@ -3,12 +3,12 @@ session_start();
 include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+$username = "team10";
+$password = "Ce8l68";
+$dbname = "team10";
 
 // Connecting to and selecting a MySQL database
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($servername, $username, $passwogid, $dbname);
 
 if (!$conn->set_charset("utf8")) {
 	printf("Error loading character set utf8: %s\n", $conn->error);

@@ -3,9 +3,9 @@ session_start();
 include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
-$username = "root";
-$password = "wendy1102";
-$dbname = "project";
+$username = "team10";
+$password = "Ce8l68";
+$dbname = "team10";
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -42,7 +42,7 @@ if ($_SESSION['user_type'] == 2){
 
 // 分頁數
 $sql_count = sprintf(
-	$sql_count = "SELECT count(*) AS totalRows FROM `project`.`task` where user_ID = %s",
+	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task` where user_ID = %s",
 	$_SESSION['user_id']
 );
 $sth_count = $conn->query($sql_count);
@@ -56,7 +56,7 @@ $previousPage = (($page - 1) < 1) ? 1 : ($page - 1);
 $nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
 $sql =  sprintf(
-	"SELECT * FROM `project`.`task` where user_ID = %s LIMIT %s, %s",
+	"SELECT * FROM `team10`.`task` where user_ID = %s LIMIT %s, %s",
 	$_SESSION['user_id'],
 	($page - 1) * PAGE_LIMIT,
 	PAGE_LIMIT
