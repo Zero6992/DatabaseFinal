@@ -1,14 +1,19 @@
 <?php
-	session_start();
+session_start();
 
-	$admin = 'none';
-	
+// 是否登出
+if (!isset($_SESSION["loggedin"])) {
+	function_notLogIn("您已登出!請重新登入!");
+}
 
-	if ($_SESSION['user_type'] == 2){
-		$admin == 'unset';
-	}
+//是否為管理員
+$admin = 'none';
+if ($_SESSION['user_type'] == 2) {
+	$admin = 'initial';
+}
 ?>
 <!DOCTYPE html>
+
 <head>
 	<title>HomePage</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -19,7 +24,7 @@
 		}
 
 		.mainTitle {
-		
+
 			cursor: pointer;
 			color: #127a7a;
 			font-size: 2.8rem;
@@ -32,14 +37,12 @@
 
 		.returnForm {
 			display: flex;
-			
 			justify-content: center;
 			align-items: center;
 
 		}
 
 		.topBar {
-
 			width: auto;
 			float: right;
 			margin-top: 1rem;
@@ -47,7 +50,7 @@
 		}
 
 		.admin {
-			display:<?=$admin?>;
+			display: <?= $admin ?>;
 			width: auto;
 			float: right;
 			margin-top: 1rem;
@@ -96,7 +99,7 @@
 			padding: 2rem;
 			margin: auto;
 			margin-top: 30rem;
-		
+
 		}
 
 		.ReturnBar p {
@@ -162,16 +165,16 @@
 <body>
 
 
-	<a href="./return.html">
+	<a href="./homepage.php">
 		<h1 class="mainTitle">師大環境通報系統</h1>
 	</a>
 	<nav>
 		<ul class="topBar">
 			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="./track.php">回報案件追蹤</a></li>
-			<li><a href="./contact.html">聯絡我們</a></li>
+			<li><a href="./contact.php">聯絡我們</a></li>
 			<li><a href="./profile.php">個人資料</a></li>
-			<li><a href="./logout.php" >登出</a></li>
+			<li><a href="./logout.php">登出</a></li>
 		</ul>
 		<ul class="admin">
 			<li><a href="#">管理案件</a></li>

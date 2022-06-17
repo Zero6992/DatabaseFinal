@@ -1,4 +1,17 @@
-<html>
+<?php
+session_start();
+
+// 是否登出
+if (!isset($_SESSION["loggedin"])) {
+	function_notLogIn("您已登出!請重新登入!");
+}
+// 是否為管理員
+$admin = 'none';
+if ($_SESSION['user_type'] == 2) {
+	$admin = 'initial';
+}
+?>
+<!DOCTYPE html>
 
 <head>
 	<title>HomePage</title>
@@ -23,9 +36,11 @@
 		.returnForm {
 			display: flex;
 			margin-bottom: 30rem;
+
 			justify-content: center;
 			align-items: center;
 		}
+	
 
 		.topBar {
 
@@ -36,8 +51,7 @@
 		}
 
 		.admin {
-			/* visibility: hidden; */
-			/*看使用者權限*/
+			display: <?= $admin ?>;
 			width: auto;
 			float: right;
 			margin-top: 1rem;
@@ -84,7 +98,7 @@
 			border-radius: 2rem;
 			box-shadow: 14px 20px 30px #04010c;
 			color: aliceblue;
-			width: 700;
+			width: 40rem;
 			padding: 2rem;
 			margin: auto;
 		}
@@ -158,7 +172,7 @@
 		<ul class="topBar">
 			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="./track.php">回報案件追蹤</a></li>
-			<li><a href="./contact.html">聯絡我們</a></li>
+			<li><a href="./contact.php">聯絡我們</a></li>
 			<li><a href="./profile.php">個人資料</a></li>
 			<li><a href="./logout.php">登出</a></li>
 		</ul>
@@ -176,20 +190,17 @@
 			<h1 class="bigTitle">聯絡資訊</h1>
 
 			<p>聯絡信箱</p>
-			<p>123456789S@gapps.ntnu.edu.tw</p>
+			<p>ga@ntnu.edu.tw</p>
 			<p> </p>
 
-
 			<p>聯絡電話</p>
-			<p>02-12345678</p>
+			<p>(02)7749-1924</p>
 			<p> </p>
 
 
 			<p>辦公室位址</p>
-			<p>公館校區 綜合大樓 校務辦公室</p>
+			<p>106台北市和平東路一段162號(國立臺灣師範大學-總務處)</p>
 		</div>
-
-
 
 	</form>
 

@@ -21,12 +21,16 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-
+// 是否登出
 if (!isset($_SESSION["loggedin"])) {
 	function_notLogIn("您已登出!請重新登入!");
 }
 define("PAGE_LIMIT", 10);
-
+// 是否為管理員
+$admin = 'none';
+if ($_SESSION['user_type'] == 2) {
+	$admin = 'initial';
+}
 
 
 // 將參數存為陣列，好處理
@@ -124,6 +128,11 @@ if (!empty($urlParams['searchText'])) {
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="./task.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+	<style>
+		.admin{
+			display: <?= $admin ?>;
+		}
+	</style>
 </head>
 
 <body>
@@ -136,7 +145,7 @@ if (!empty($urlParams['searchText'])) {
 			<ul class="topBar">
 				<li><a href="./task.php">案件查詢</a></li>
 				<li><a href="./track.php">回報案件追蹤</a></li>
-				<li><a href="./contact.html">聯絡我們</a></li>
+				<li><a href="./contact.php">聯絡我們</a></li>
 				<li><a href="./profile.php">個人資料</a></li>
 				<li><a href="./logout.php">登出</a></li>
 			</ul>

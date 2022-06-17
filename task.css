@@ -37,8 +37,7 @@ body {
 }
 
 .admin {
-    /* visibility: hidden; */
-    /*看使用者權限*/
+
     width: auto;
     float: right;
     margin-top: 1rem;

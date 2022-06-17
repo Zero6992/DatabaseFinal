@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 // ******** update your personal settings ******** 
 $servername = "localhost";
 $username = "root";
@@ -18,6 +20,15 @@ if (!$conn->set_charset("utf8")) {
 // Check connection
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
+}
+// 是否登出
+if (!isset($_SESSION["loggedin"])) {
+	function_notLogIn("您已登出!請重新登入!");
+}
+// 是否為管理員
+$admin = 'none';
+if ($_SESSION['user_type'] == 2) {
+	$admin = 'initial';
 }
 
 $user_id = $_SESSION['user_id'];
@@ -71,8 +82,7 @@ $read = mysqli_fetch_assoc($result);
 		}
 
 		.admin {
-			/* visibility: hidden; */
-			/*看使用者權限*/
+			display: <?= $admin ?>;
 			width: auto;
 			float: right;
 			margin-top: 1rem;
@@ -178,7 +188,7 @@ $read = mysqli_fetch_assoc($result);
 		<ul class="topBar">
 			<li><a href="./task.php">案件查詢</a></li>
 			<li><a href="./track.php">回報案件追蹤</a></li>
-			<li><a href="./contact.html">聯絡我們</a></li>
+			<li><a href="./contact.php">聯絡我們</a></li>
 			<li><a href="./profile.php">個人資料</a></li>
 			<li><a href="./logout.php">登出</a></li>
 		</ul>
@@ -210,7 +220,7 @@ $read = mysqli_fetch_assoc($result);
 
 
 	</div>
-
+	</p>
 
 
 

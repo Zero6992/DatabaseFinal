@@ -48,7 +48,7 @@ function function_alert($message)
 {
 	// Display the alert box  
 	echo "<script>alert('$message');
-     window.location.href='return.html';
+     window.location.href='homepage.php';
     </script>";
 	return false;
 }
