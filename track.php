@@ -29,22 +29,25 @@ define("PAGE_LIMIT", 10);
 
 // 是否為管理員
 $admin = 'none';
-if ($_SESSION['user_type'] == 2){
+if ($_SESSION['user_type'] == 2) {
 	$admin = 'initial';
 }
 
+$topMargin = '20rem';
+if($_SESSION['user_type'] == 2){
+	$topMargin = '27rem';
+}
+
+
+	//處理搜尋
 
 
 
-//處理搜尋
-
-
-
-// 分頁數
-$sql_count = sprintf(
-	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task` where user_ID = %s",
-	$_SESSION['user_id']
-);
+	// 分頁數
+	$sql_count = sprintf(
+		$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task` where user_ID = %s",
+		$_SESSION['user_id']
+	);
 $sth_count = $conn->query($sql_count);
 $result_count = $sth_count->fetch_assoc();
 $totalRows = $result_count['totalRows'];
@@ -77,8 +80,13 @@ $result = $conn->query($sql);
 	<link rel="stylesheet" href="./track.css">
 	<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<style>
-		.admin{
+		.admin {
 			display: <?= $admin ?>;
+		}
+
+		.inMid {
+
+			margin-top: <?= $topMargin ?>;
 		}
 	</style>
 

@@ -31,7 +31,10 @@ $admin = 'none';
 if ($_SESSION['user_type'] == 2) {
 	$admin = 'initial';
 }
-
+$topMargin = '20rem';
+if($_SESSION['user_type'] == 2){
+	$topMargin = '27rem';
+}
 
 // 將參數存為陣列，好處理
 $urlParams = [];

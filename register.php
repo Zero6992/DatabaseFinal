@@ -1,4 +1,8 @@
-<html>
+<?php
+session_start();
+
+?>
+<!DOCTYPE html>
 
 <head>
 	<title>師大環境通報系統註冊</title>
@@ -24,8 +28,9 @@
 			border-radius: 2rem;
 			box-shadow: 14px 14px 20px #04010c;
 			color: aliceblue;
-			width: 700;
+			width: 35rem;
 			padding: 2rem;
+			margin-top: 20rem;
 		}
 		.signUpArea p {
 			cursor: default;
@@ -99,7 +104,7 @@
 
 	<script>
 		function cancel() {
-			document.signUpForm.action = "./index.html"
+			document.signUpForm.action = "./index.php"
 			document.signInForm.submit()
 		}
 		function SignUpDone(){
@@ -108,5 +113,4 @@
 		}
 	</script>
 </body>
-
 </html>

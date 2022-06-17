@@ -8,7 +8,7 @@ $password = "Ce8l68";
 $dbname = "team10";
 
 // Connecting to and selecting a MySQL database
-$conn = new mysqli($servername, $username, $passwogid, $dbname);
+$conn = new mysqli($servername, $username, $password, $dbname);
 
 if (!$conn->set_charset("utf8")) {
 	printf("Error loading character set utf8: %s\n", $conn->error);
@@ -33,11 +33,12 @@ if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['tim
 	$problem = $_POST['problem'];
 	$user_id = $_SESSION['user_id'];
 
-	$insert_sql = "INSERT INTO TASK (task_type,location,time,problem,user_id) VALUES('$task_type','$location','$time','$problem','$user_id');";	// ******** update your personal settings ******** 
+	$insert_sql = "INSERT INTO task(task_type,location,time,problem,user_id) VALUES('$task_type','$location','$time','$problem','$user_id');";	// ******** update your personal settings ******** 
 
 	if ($conn->query($insert_sql) === TRUE) {
 		function_alert('回報成功!!');
 	} else {
+		echo("Error description: " . $conn -> error);
 		function_alert('回報失敗!!');
 	}
 }

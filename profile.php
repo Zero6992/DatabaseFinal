@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+include 'notLogIn.php';
 
 // ******** update your personal settings ******** 
 $servername = "localhost";

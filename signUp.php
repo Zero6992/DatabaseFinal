@@ -26,7 +26,7 @@ if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['user
 	$userAccount = $_POST['userAccount'];
 	$userPassword = $_POST['userPassword'];
 
-	$insert_sql = "INSERT INTO USER (user_type,NAME,mail,ACCOUNT,PASSWORD) VALUES(1,'$userName','$userMail','$userAccount','$userPassword');";	// ******** update your personal settings ******** 
+	$insert_sql = "INSERT INTO user(user_type,NAME,mail,ACCOUNT,PASSWORD) VALUES(1,'$userName','$userMail','$userAccount','$userPassword');";	// ******** update your personal settings ******** 
 	
 	if ($conn->query($insert_sql) === TRUE) {
 		function_sucess("註冊成功!!");
@@ -41,7 +41,7 @@ function function_sucess($message) {
       
     // Display the alert box  
     echo "<script>alert('$message');
-     window.location.href='Index.html';
+     window.location.href='index.php';
     </script>"; 
     
     return false;
@@ -50,7 +50,7 @@ function function_alert($message) {
       
     // Display the alert box  
     echo "<script>alert('$message');
-     window.location.href='signUp.html';
+     window.location.href='register.php';
     </script>"; 
     
     return false;

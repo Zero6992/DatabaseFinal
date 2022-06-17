@@ -98,7 +98,7 @@
 			document.signInForm.action = "./signIn.php"
 		}
 		function signUp() {
-			document.signInForm.action = "./signUp.html"
+			document.signInForm.action = "./register.php"
 	
 		}
 	</script>

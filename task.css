@@ -19,7 +19,7 @@ body {
 
 .returnForm {
     display: flex;
-    margin-bottom: 20rem;
+    margin-top: 30rem;
     justify-content: center;
     align-items: center;
 }
@@ -72,7 +72,7 @@ body {
 
 .searchGroup {
     position: absolute;
-    top: 24rem;
+    top: 15rem;
     width: 95%;
     margin: 2.4rem;
 }
