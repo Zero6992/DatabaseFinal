@@ -3,9 +3,16 @@ session_start();
 include 'notLogIn.php';
 // ******** update your personal settings ******** 
 $servername = "localhost";
+$username = "root";
+$password = "wendy1102";
+$dbname = "team10";
+
+/*
+$servername = "localhost";
 $username = "team10";
 $password = "Ce8l68";
 $dbname = "team10";
+*/
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -25,7 +32,8 @@ if (!isset($_SESSION["loggedin"])) {
 	function_notLogIn("您已登出!請重新登入!");
 }
 
-define("PAGE_LIMIT", 10);
+//一頁幾筆
+define("TRACK_PAGE_LIMIT", 5);
 
 // 是否為管理員
 $admin = 'none';
@@ -34,24 +42,21 @@ if ($_SESSION['user_type'] == 2) {
 }
 
 $topMargin = '20rem';
-if($_SESSION['user_type'] == 2){
+if ($_SESSION['user_type'] == 2) {
 	$topMargin = '27rem';
 }
 
 
-	//處理搜尋
-
-
-
-	// 分頁數
-	$sql_count = sprintf(
-		$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task` where user_ID = %s",
-		$_SESSION['user_id']
-	);
+//處理搜尋
+// 分頁數
+$sql_count = sprintf(
+	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task` where user_ID = %s",
+	$_SESSION['user_id']
+);
 $sth_count = $conn->query($sql_count);
 $result_count = $sth_count->fetch_assoc();
 $totalRows = $result_count['totalRows'];
-$totalPages = ceil($totalRows / PAGE_LIMIT);
+$totalPages = ceil($totalRows / TRACK_PAGE_LIMIT);
 
 //抓各頁資料
 $page = (isset($_GET['page'])) ? intval($_GET['page']) : 1;
@@ -61,8 +66,8 @@ $nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 $sql =  sprintf(
 	"SELECT * FROM `team10`.`task` where user_ID = %s LIMIT %s, %s",
 	$_SESSION['user_id'],
-	($page - 1) * PAGE_LIMIT,
-	PAGE_LIMIT
+	($page - 1) * TRACK_PAGE_LIMIT,
+	TRACK_PAGE_LIMIT
 );
 
 $result = $conn->query($sql);
@@ -87,6 +92,19 @@ $result = $conn->query($sql);
 		.inMid {
 
 			margin-top: <?= $topMargin ?>;
+		}
+
+		.textArea {
+			font-size: 1.15rem;
+			border: none;
+			background-color: rgb(39, 34, 34);
+			color: #fff;
+			display: flex;
+			padding: 0.5rem;
+			resize: none;
+			float: left;
+			width: 95%;
+			outline: none;
 		}
 	</style>
 
@@ -124,23 +142,11 @@ $result = $conn->query($sql);
 					<td class="boardTitle">案件通報時間</td>
 					<td class="boardTitle">地點</td>
 					<td class="boardTitle">狀態</td>
-					<td class="boardTitle">通報人ID</td>
+					<td class="boardTitle">案件簡述</td>
 				</tr>
 			</thead>
 			<tbody>
 				<?php while ($board = $result->fetch_assoc()) : ?>
-					<?php
-					if ($board['task_type'] == 1) {
-						$board['task_type'] = '廢棄物';
-					} else if ($board['task_type'] == 2) {
-						$board['task_type'] = '落葉';
-					} else if ($board['task_type'] == 3) {
-						$board['task_type'] = '髒污清潔';
-					} else if ($board['task_type'] == 4) {
-						$board['task_type'] = '器物損壞';
-					} else if ($board['task_type'] == 5) {
-						$board['task_type'] = '其他';
-					} ?>
 					<?php
 					if ($board['flag'] == 0) {
 						$board['flag'] = '未處理';
@@ -161,7 +167,7 @@ $result = $conn->query($sql);
 																		} elseif ($board['flag'] === '已處理') {
 																			echo "#ADFF2F";
 																		} ?>"><?php print $board['flag'] ?></td>
-						<td class="boardInput" name="user_ID"><?php print $board['user_id'] ?></td>
+						<td class="boardInput" name="problem"><textarea class="textArea" readonly="true" rows="2" cols="10"><?php print $board['problem'] ?></textarea> </td>
 					</tr>
 				<?php endwhile ?>
 
@@ -171,7 +177,7 @@ $result = $conn->query($sql);
 		</table>
 		<nav>
 			<ul class="pagination">
-				<li class="page-item"><a class="page-link" href="trackk.php?page=<?php print $previousPage ?>">前一頁</a></li>
+				<li class="page-item"><a class="page-link" href="track.php?page=<?php print $previousPage ?>">前一頁</a></li>
 				<?php for ($i = 1; $i <= $totalPages; $i++) : ?>
 					<li class="page-item<?php if ($page == $i) print 'active' ?>"><a class="page-link" href="track.php?page=<?php print $i ?>"><?php print $i ?></a></li>
 				<?php endfor ?>
