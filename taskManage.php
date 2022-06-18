@@ -5,13 +5,10 @@ $conn=require('config.php');
 define("PAGE_LIMIT", 5);
 
 // 是否為管理員
-$admin = 'none';
-if ($_SESSION['user_type'] == 2) {
-	$admin = 'initial';
-}
-$topMargin = '15rem';
-if ($_SESSION['user_type'] == 2) {
-	$topMargin = '24rem';
+$admin = require('isAdmin.php');
+$topMargin = '20rem';
+if ($_SESSION['user_type'] == '管理員') {
+	$topMargin = '27rem';
 }
 
 // 將參數存為陣列，好處理

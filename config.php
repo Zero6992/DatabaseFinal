@@ -34,14 +34,6 @@ if (!isset($_SESSION["loggedin"])) {
 	function_notLogIn("您已登出!請重新登入!");
 }
 
-//是否為管理員
-$admin = 'none';
-if ($_SESSION['user_type'] == '管理員') {
-	$admin = 'initial';
-}
-$topMargin = '20rem';
-if ($_SESSION['user_type'] == '管理員') {
-	$topMargin = '27rem';
-}
+
 return $conn;
 ?>

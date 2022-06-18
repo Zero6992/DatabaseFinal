@@ -1,6 +1,12 @@
 <?php
 session_start();
 $conn = require('config.php');
+// 是否為管理員
+$admin = require('isAdmin.php');
+$topMargin = '20rem';
+if ($_SESSION['user_type'] == '管理員') {
+	$topMargin = '27rem';
+}
 //一頁幾筆
 define("TRACK_PAGE_LIMIT", 5);
 

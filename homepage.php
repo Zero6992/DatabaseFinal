@@ -2,6 +2,13 @@
 session_start();
 
 $conn=require('config.php');
+
+// 是否為管理員
+$admin = require('isAdmin.php');
+$topMargin = '20rem';
+if ($_SESSION['user_type'] == '管理員') {
+	$topMargin = '27rem';
+}
 ?>
 <!DOCTYPE html>
 

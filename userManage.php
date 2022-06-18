@@ -2,23 +2,22 @@
 session_start();
 $conn=require('config.php');
 
-//一頁幾筆
+// 是否為管理員
+$admin = require('isAdmin.php');
+$topMargin = '20rem';
+if ($_SESSION['user_type'] == '管理員') {
+	$topMargin = '27rem';
+}
 
+//一頁幾筆
 define("PAGE_LIMIT", 5);
 
 // 將參數存為陣列，好處理
 $urlParams = [];
 parse_str($_SERVER['QUERY_STRING'], $urlParams);
 
-
-
-
-
-
 //處理搜尋
 $sqlMethod = '';
-
-
 
 // 讀取所有資料
 if (!empty($urlParams['searchText'])) {
