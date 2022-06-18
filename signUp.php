@@ -1,6 +1,7 @@
 <?php
 
 // ******** update your personal settings ******** 
+
 $servername = "localhost";
 $username = "root";
 $password = "wendy1102";
@@ -25,6 +26,7 @@ if (!$conn->set_charset("utf8")) {
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
+
 if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['userAccount']) || empty($_POST['userPassword'])) {
 	function_alert("資料不完全!請重新註冊!!");
 }else{
@@ -62,6 +64,4 @@ function function_alert($message) {
     
     return false;
 }
-				
 ?>
-

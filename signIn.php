@@ -2,6 +2,7 @@
 
 session_start();
 // ******** update your personal settings ******** 
+
 $servername = "localhost";
 $username = "root";
 $password = "wendy1102";
