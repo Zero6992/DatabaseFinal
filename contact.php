@@ -52,12 +52,36 @@ if ($_SESSION['user_type'] == 2) {
 		.mainTitle {
 			cursor: pointer;
 			color: #127a7a;
-			font-size: 2.8rem;
-			padding: 0.2rem;
 			float: left;
-			margin-left: 2%;
-			margin-top: 1.5rem;
+			position: relative;
+			padding: 1rem 2rem 0.5rem 2.5rem;
+			border: 3px solid #776e62;
+			transition: padding 0.3s ease-in-out;
+		}
 
+		.mainTitle::before {
+			content: "";
+			position: absolute;
+			top: 0.5rem;
+			left: 0.5rem;
+			z-index: -1;
+			height: 100%;
+			width: 100%;
+			background-color: #d1d6e0;
+			border-right: 3px solid #d1d6e0;
+			border-bottom: 3px solid #d1d6e0;
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+
+		}
+
+		.mainTitle:hover {
+			padding: 0.75rem 2.25rem;
+		}
+
+		.mainTitle:hover::before {
+			top: 0;
+			left: 0;
 		}
 
 		.returnForm {
@@ -67,7 +91,7 @@ if ($_SESSION['user_type'] == 2) {
 			justify-content: center;
 			align-items: center;
 		}
-	
+
 
 		.topBar {
 
@@ -76,6 +100,8 @@ if ($_SESSION['user_type'] == 2) {
 			margin-top: 1rem;
 			border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
 		}
+
+
 
 		.admin {
 			display: <?= $admin ?>;
@@ -98,18 +124,19 @@ if ($_SESSION['user_type'] == 2) {
 
 		a {
 			text-align: center;
-			color: black;
 			text-decoration: none;
-
+			border-color: #ffffff;
+			color: #127a7a;
+			cursor: pointer;
+			background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
+			background-position: 25%;
+			background-size: 400%;
+			-webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
 		}
 
 		a:hover {
-
-			color: #B9e5f3;
-			background-color: black;
-			background-size: 50% 30%;
-			transition: 1s;
-			border: solid rgba(10, 25, 77, 1) 0.2rem;
+			color: #ffffff;
+			background-position: 100%;
 		}
 
 		.bigTitle {
@@ -204,7 +231,7 @@ if ($_SESSION['user_type'] == 2) {
 			<li><a href="./logout.php">登出</a></li>
 		</ul>
 		<ul class="admin">
-			<li><a href="#">管理案件</a></li>
+			<li><a href="./taskManage.php">管理案件</a></li>
 			<li><a href="#">管理使用者</a></li>
 			<li><a href="#">管理公司</a></li>
 		</ul>

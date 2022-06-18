@@ -33,7 +33,7 @@ if (!isset($_SESSION["loggedin"])) {
 	function_notLogIn("您已登出!請重新登入!");
 }
 //一頁幾筆
-define("PAGE_LIMIT", 10);
+define("PAGE_LIMIT", 5);
 // 是否為管理員
 $admin = 'none';
 if ($_SESSION['user_type'] == 2) {
@@ -72,8 +72,9 @@ if (!empty($urlParams['searchText'])) {
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'user_ID':
-			$sqlMethod = '=';
+		case 'problem':
+			$sqlMethod = 'like';
+			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
 	}
 
@@ -176,16 +177,38 @@ function function_alert($message)
 		}
 
 		.mainTitle {
-
 			cursor: pointer;
 			color: #127a7a;
-			font-size: 2.8rem;
-			padding: 0.2rem;
 			float: left;
-			margin-left: 2%;
-			margin-top: 1.5rem;
+			position: relative;
+			padding: 1rem 2rem 0.5rem 2.5rem;
+			border: 3px solid #776e62;
+			transition: padding 0.3s ease-in-out;
+		}
 
+		.mainTitle::before {
+			content: "";
+			position: absolute;
+			top: 0.5rem;
+			left: 0.5rem;
+			z-index: -1;
+			height: 100%;
+			width: 100%;
+			background-color: #d1d6e0;
+			border-right: 3px solid #d1d6e0;
+			border-bottom: 3px solid #d1d6e0;
+			-webkit-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
 
+		}
+
+		.mainTitle:hover {
+			padding: 0.75rem 2.25rem;
+		}
+
+		.mainTitle:hover::before {
+			top: 0;
+			left: 0;
 		}
 
 
@@ -207,7 +230,7 @@ function function_alert($message)
 		}
 
 		.topBar a {
-			color: black;
+			color: #127a7a;
 		}
 
 		.admin {
@@ -232,16 +255,18 @@ function function_alert($message)
 
 		.Pboard a {
 			text-align: center;
-
 			text-decoration: none;
+			border-color: #ffffff;
+			cursor: pointer;	
+			background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
+			background-position: 25%;
+			background-size: 400%;
+			-webkit-transition: background 500ms ease-in-out, color 500ms ease-in-out;
 		}
 
 		.Pboard a:hover {
-			color: #B9e5f3;
-			background-color: black;
-			background-size: 50% 30%;
-			transition: 1s;
-			border: solid rgba(10, 25, 77, 1) 0.2rem;
+			color: #ffffff;
+			background-position: 100%;
 		}
 
 		.searchGroup {
@@ -365,44 +390,71 @@ function function_alert($message)
 			padding: 0.8rem;
 		}
 
+		.textArea {
+			font-size: 1.15rem;
+			border: none;
+			background-color: rgb(39, 34, 34);
+			color: #fff;
+			display: flex;
+			padding: 0.5rem;
+			resize: none;
+			float: left;
+			width: 95%;
+			outline: none;
+		}
+
+		.inputText {
+			font-size: 1.5rem;
+			font-weight: bolder;
+			margin: 0.4rem;
+			width: 100%;
+			height: 100%;
+			border-radius: 20px;
+			text-align: center;
+
+		}
+
+		.action_td {
+			display: inline-grid;
+		}
+
 		.action {
 			display: inline-grid;
 			flex-direction: column-reverse;
 			width: 6rem;
-			height: 5rem;
+			height: 2rem;
 		}
-		.fa-pencil{
-			background-color:#4bc45b;
+
+		.fa-pencil {
+			background-color: #4bc45b;
 		}
-		.fa-trash-o{
-			background-color:#ff4b5b;
+
+		.fa-trash-o {
+			background-color: #ff4b5b;
 		}
-		.action button{
-			font-size: 0.9rem;
-			margin: 0.3rem;
+
+		.action input {
+			font-size: 1rem;
 			font-weight: 700;
-			
 			border-radius: 10px;
 			cursor: pointer;
+			width: 100%;
+			height: 80%;
+			margin: 0.3rem;
 
 		}
-		.fa-pencil{
-			background-color:#4bc45b;
-		}
-		
+
+		.action input:hover {}
+
 		.status {
 			display: inline-block;
 			font-size: 1.1rem;
 			font-weight: bolder;
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			border-radius: 40%;
-			padding: 0.75rem 0.8rem;
+			padding: 0.8rem;
 			color: #2b2b2b;
-			margin: 1rem 0px;
-			border-style: solid;
-			border-width: 2px;
-			border-color: #c6d6e6;
-
+			margin: 5%
 		}
 
 		.page-item {
@@ -484,7 +536,7 @@ function function_alert($message)
 					<option value="task_ID">案件ID</option>
 					<option value="task_type">案件類別</option>
 					<option value="location">地點</option>
-					<option value="user_ID">通報人ID</option>
+					<option value="problem">案件簡述</option>
 				</select>
 				<div class="container-1">
 					<span class="submit" name="submit" type="submit" onClick="submitForm()"><i class="fa fa-search"></i></span>
@@ -506,31 +558,63 @@ function function_alert($message)
 		</thead>
 		<tbody>
 			<?php while ($board = $result->fetch_assoc()) : ?>
+				<form action="./editTask.php?id=<?php print $board['task_id'] ?>" method="post" name="taskAction">
+					<?php
+					if ($board['flag'] == 0) {
+						$board['flag'] = '未處理';
+					} else if ($board['flag'] == 1) {
+						$board['flag'] = '處理中';
+					} else if ($board['flag'] == 2) {
+						$board['flag'] = '已處理';
+					} ?>
+					<tr align="center">
+						<td class="boardInput" name="task_ID"><?php echo $board['task_id'] ?></td>
+						<td class="boardInput">
+							<select class="inputText" name="task_type">
+								<option value="廢棄物" <?php if ($board['task_type'] == '廢棄物') {
+														print 'selected';
+													} ?>>廢棄物</option>
+								<option value="落葉" <?php if ($board['task_type'] == '落葉') {
+														print 'selected';
+													} ?>>落葉</option>
+								<option value="髒污清潔" <?php if ($board['task_type'] == '髒污清潔') {
+															print 'selected';
+														} ?>>髒污清潔</option>
+								<option value="器物損壞" <?php if ($board['task_type'] == '器物損壞') {
+															print 'selected';
+														} ?>>器物損壞</option>
+								<option value="其他" <?php if ($board['task_type'] == '其他') {
+														print 'selected';
+													} ?>>其他</option>
+							</select>
+						</td>
 
-				<?php
-				if ($board['flag'] == 0) {
-					$board['flag'] = '未處理';
-				} else if ($board['flag'] == 1) {
-					$board['flag'] = '處理中';
-				} else if ($board['flag'] == 2) {
-					$board['flag'] = '已處理';
-				} ?>
-				<tr align="center">
-					<td class="boardInput" name="task_ID"><?php echo $board['task_id'] ?></td>
-					<td class="boardInput" name="task_type"><?php print $board['task_type'] ?></td>
+						<td class="boardInput" name="locatio"><?php print $board['location'] ?></td>
+						<td class="status">
+							<select class="inputText" name="task_status">
+								<option value="未處理" <?php if ($board['flag'] == '未處理') {
+														print 'selected';
+													} ?>>未處理</option>
+								<option value="處理中" <?php if ($board['flag'] == '處理中') {
+														print 'selected';
+													} ?>>處理中</option>
+								<option value="已處理" <?php if ($board['flag'] == '已處理') {
+														print 'selected';
+													} ?>>已處理</option>
+							</select>
+						</td>
+						<td class="boardInput" name="user_ID"><?php print $board['user_id'] ?></td>
+						<td class="boardInput" name="problem"><textarea class="textArea" readonly="true" rows="2" cols="10"><?php print $board['problem'] ?></textarea> </td>
 
-					<td class="boardInput" name="locatio"><?php print $board['location'] ?></td>
-					<td class="status" name="task_status" bgcolor="<?php if ($board['flag'] === '未處理') {
-																		echo "#A7414A";
-																	} elseif ($board['flag'] === '處理中') {
-																		echo "#F28A30";
-																	} elseif ($board['flag'] === '已處理') {
-																		echo "#ADFF2F";
-																	} ?>"><?php print $board['flag'] ?></td>
-					<td class="boardInput" name="user_ID"><?php print $board['user_id'] ?></td>
-					<td class="boardInput" name="problem"><?php print $board['problem'] ?></td>
-
-					<td class="action"><button class="fa fa-trash-o" aria-hidden="true">刪除</button><button class="fa fa-pencil"  aria-hidden="true">編輯</button></td>
+						<td class="action_td">
+							<div class="action">
+								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="editTask()">
+							</div>
+				</form>
+				<form action="./deleteTask.php?id=<?php print $board['task_id'] ?>" method="post" name="taskAction" class="action">
+					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除?')">
+				</form>
+				</td>
 				</tr>
 			<?php endwhile ?>
 
@@ -554,6 +638,11 @@ function function_alert($message)
 	<script>
 		function submitForm() {
 			document.forms[0].submit();
+		}
+
+
+		function editTask() {
+			document.taskAction.action = "./editTask.php"
 		}
 	</script>
 

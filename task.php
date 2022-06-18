@@ -72,8 +72,9 @@ if (!empty($urlParams['searchText'])) {
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'user_ID':
-			$sqlMethod = '=';
+		case 'problem':
+			$sqlMethod = 'like';
+			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
 	}
 
@@ -179,6 +180,19 @@ function function_alert($message)
 		.searchGroup {
 			top: <?= $topMargin ?>;
 		}
+
+		.textArea {
+			font-size: 1.15rem;
+			border: none;
+			background-color: rgb(39, 34, 34);
+			color: #fff;
+			display: flex;
+			padding: 0.5rem;
+			resize: none;
+			float: left;
+			width: 95%;
+			outline: none;
+		}
 	</style>
 </head>
 
@@ -197,7 +211,7 @@ function function_alert($message)
 				<li><a href="./logout.php">登出</a></li>
 			</ul>
 			<ul class="admin">
-				<li><a href="#">管理案件</a></li>
+				<li><a href="./taskManage.php">管理案件</a></li>
 				<li><a href="#">管理使用者</a></li>
 				<li><a href="#">管理公司</a></li>
 			</ul>
@@ -212,7 +226,7 @@ function function_alert($message)
 					<option value="task_ID">案件ID</option>
 					<option value="task_type">案件類別</option>
 					<option value="location">地點</option>
-					<option value="user_ID">案件簡述</option>
+					<option value="problem">案件簡述</option>
 				</select>
 				<div class="container-1">
 					<span class="submit" name="submit" type="submit" onClick="submitForm()"><i class="fa fa-search"></i></span>

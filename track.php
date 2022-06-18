@@ -125,7 +125,7 @@ $result = $conn->query($sql);
 				<li><a href="./logout.php">登出</a></li>
 			</ul>
 			<ul class="admin">
-				<li><a href="#">管理案件</a></li>
+				<li><a href="./taskManage.php">管理案件</a></li>
 				<li><a href="#">管理使用者</a></li>
 				<li><a href="#">管理公司</a></li>
 			</ul>
