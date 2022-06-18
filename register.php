@@ -26,7 +26,7 @@ session_start();
 		.signUpArea {
 			background-color: #23345c;
 			border-radius: 2rem;
-			box-shadow: 14px 14px 20px #04010c;
+			box-shadow: -10px 10px 0px 0px black;
 			color: aliceblue;
 			width: 35rem;
 			padding: 2rem;

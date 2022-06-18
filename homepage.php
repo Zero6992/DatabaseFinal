@@ -72,9 +72,9 @@ if ($_SESSION['user_type'] == 2) {
 			z-index: -1;
 			height: 100%;
 			width: 100%;
-			background-color: #d1d6e0;
-			border-right: 3px solid #d1d6e0;
-			border-bottom: 3px solid #d1d6e0;
+			background-color: #dddfca;
+			border-right: 3px solid #dddfca;
+			border-bottom: 3px solid #dddfca;
 			-webkit-transition: all 0.3s ease-in-out;
 			transition: all 0.3s ease-in-out;
 
@@ -150,7 +150,7 @@ if ($_SESSION['user_type'] == 2) {
 		.ReturnBar {
 			background-color: #23345c;
 			border-radius: 2rem;
-			box-shadow: 14px 20px 30px #04010c;
+			box-shadow: -10px 10px 0px 0px black;
 			color: aliceblue;
 			width: 45rem;
 			padding: 2rem;
@@ -235,7 +235,7 @@ if ($_SESSION['user_type'] == 2) {
 		</ul>
 		<ul class="admin">
 			<li><a href="./taskManage.php">管理案件</a></li>
-			<li><a href="#">管理使用者</a></li>
+			<li><a href="./userManage.php">管理使用者</a></li>
 			<li><a href="#">管理公司</a></li>
 		</ul>
 	</nav>

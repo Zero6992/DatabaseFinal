@@ -81,9 +81,9 @@ $read = mysqli_fetch_assoc($result);
 			z-index: -1;
 			height: 100%;
 			width: 100%;
-			background-color: #d1d6e0;
-			border-right: 3px solid #d1d6e0;
-			border-bottom: 3px solid #d1d6e0;
+			background-color: #dddfca;
+			border-right: 3px solid #dddfca;
+			border-bottom: 3px solid #dddfca;
 			-webkit-transition: all 0.3s ease-in-out;
 			transition: all 0.3s ease-in-out;
 
@@ -227,7 +227,7 @@ $read = mysqli_fetch_assoc($result);
 		</ul>
 		<ul class="admin">
 			<li><a href="./taskManage.php">管理案件</a></li>
-			<li><a href="#">管理使用者</a></li>
+			<li><a href="./userManage.php">管理使用者</a></li>
 			<li><a href="#">管理公司</a></li>
 		</ul>
 	</nav>

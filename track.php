@@ -126,7 +126,7 @@ $result = $conn->query($sql);
 			</ul>
 			<ul class="admin">
 				<li><a href="./taskManage.php">管理案件</a></li>
-				<li><a href="#">管理使用者</a></li>
+				<li><a href="./userManage.php">管理使用者</a></li>
 				<li><a href="#">管理公司</a></li>
 			</ul>
 		</nav>
