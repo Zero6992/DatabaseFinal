@@ -1,15 +1,8 @@
 <?php
 session_start();
-$conn=require('config.php');
-
+$conn = require('config.php');
+$conn -> query("set foreign_key_checks=0");
 $id = $_GET['id'];
-
-// 刪除此使用者提交過的任務
-$sql = sprintf(
-	"DELETE from task WHERE user_id = %d;",
-	$id
-);
-$result = $conn->query($sql);
 
 // 刪除使用者
 $sql = sprintf(
@@ -19,8 +12,10 @@ $sql = sprintf(
 
 $result = $conn->query($sql);
 if (!$result) {
+	$conn -> query("set foreign_key_checks=1");
 	function_alert('刪除失敗!!');
 } else {
+	$conn -> query("set foreign_key_checks=1");
 	function_alert('刪除成功!!');
 }
 
@@ -33,7 +28,3 @@ function function_alert($message)
     </script>";
 	return false;
 }
-
-
-
-?>

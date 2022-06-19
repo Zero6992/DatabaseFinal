@@ -570,7 +570,7 @@ function function_notPermisson($message)
 								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="return confirm('確認要編輯此使用者?')">
 							</div>
 				</form>
-				<form action="./deletecompany.php?id=<?php print $board['company_id'] ?>" method="post" name="companyAction" class="action">
+				<form action="./deleteCompany.php?id=<?php print $board['company_id'] ?>" method="post" name="companyAction" class="action">
 					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除此使用者?')">
 				</form>
 				</td>
