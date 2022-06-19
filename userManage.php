@@ -464,6 +464,17 @@ function function_alert($message)
 		.searchGroup {
 			top: <?= $topMargin ?>;
 		}
+		@media screen and (min-width:1420px) {
+			.topBar {
+				position: absolute;
+				right: 0rem;
+			}
+
+			.admin {
+				position: relative;
+				top: 7.8rem;
+			}
+		}
 	</style>
 </head>
 

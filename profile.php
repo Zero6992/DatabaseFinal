@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 // 是否為管理員
 $admin = require('isAdmin.php');
 $topMargin = '20rem';
@@ -174,6 +174,52 @@ $read = mysqli_fetch_assoc($result);
 		.ProfileTitle {
 			color: #f2a830;
 			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+		}
+
+		@media screen and (max-width:890px) {
+
+			.topBar,
+			.admin {
+				display: inline-flex;
+				flex-direction: column;
+				border: unset;
+			}
+
+
+			.ReturnBar {
+				top: 36rem;
+				right: -1.4rem;
+			}
+		}
+
+		@media screen and (max-width:630px) {
+
+			.topBar,
+			.admin {
+				width: auto;
+				float: right;
+				margin-top: 1rem;
+				display: unset;
+				border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
+			}
+
+
+			.ReturnBar {
+				margin-top: 40rem;
+				width: 20rem;
+			}
+		}
+
+		@media screen and (min-width:1440px) {
+			.topBar {
+				position: absolute;
+				right: 0rem;
+			}
+
+			.admin {
+				position: relative;
+				top: 7.8rem;
+			}
 		}
 	</style>
 </head>

@@ -68,6 +68,31 @@ $result = $conn->query($sql);
 			width: 95%;
 			outline: none;
 		}
+		@media screen and (max-width:1290px) {
+			.board{
+				margin-top: 4rem;
+			}
+
+		}
+
+		@media screen and (max-width:585px) {
+			.board {
+				margin-top: 8rem;
+
+			}
+		}
+
+		@media screen and (min-width:1420px) {
+			.topBar {
+				position: absolute;
+				right: 0rem;
+			}
+
+			.admin {
+				position: relative;
+				top: 7.8rem;
+			}
+		}
 	</style>
 
 </head>

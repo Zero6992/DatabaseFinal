@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 
 //一頁幾筆
 define("PAGE_LIMIT", 10);
@@ -160,6 +160,32 @@ function function_alert($message)
 			float: left;
 			width: 95%;
 			outline: none;
+		}
+
+		@media screen and (max-width:1240px) {
+			.searchGroup {
+				top: 27rem;
+				right: -0.9rem;
+			}
+		}
+
+		@media screen and (max-width:610px) {
+			.searchGroup {
+				top: 36rem;
+				right: -1.4rem;
+			}
+		}
+
+		@media screen and (min-width:1420px) {
+			.topBar {
+				position: absolute;
+				right: 0rem;
+			}
+
+			.admin {
+				position: relative;
+				top: 7.8rem;
+			}
 		}
 	</style>
 </head>

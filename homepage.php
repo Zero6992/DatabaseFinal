@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-$conn=require('config.php');
+$conn = require('config.php');
 
 // 是否為管理員
 $admin = require('isAdmin.php');
@@ -15,7 +15,7 @@ if ($_SESSION['user_type'] == '管理員') {
 <head>
 	<title>HomePage</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<style>
 		body {
 			background-color: #bbbf95;
@@ -182,6 +182,48 @@ if ($_SESSION['user_type'] == '管理員') {
 			box-shadow: 4px 3px 4px rgb(139, 28, 28);
 			transition: 1s;
 			cursor: pointer;
+		}
+
+		@media screen and (max-width:789px) {
+			.bigTitle {
+				display: unset;
+			}
+
+			.inputText {
+				font-size: 1.2rem;
+				width: 18rem;
+			}
+
+			.describe {
+				font-size: 1.2rem;
+				width: 18rem;
+			}
+
+			.ReturnBar {
+				margin-top: 40rem;
+				width: 20rem;
+				height: 100%;
+			}
+
+			.topBar {
+				display: inline-flex;
+			}
+
+			.button {
+				width: 6rem;
+				font-size: 1.5rem;
+				margin-top: -0.5rem;
+			}
+		}
+		@media screen and (min-width:1420px){
+			.topBar{
+				position: absolute;
+				right: 0rem;
+			}
+			.admin{
+				position: relative;
+				top: 8rem;
+			}
 		}
 	</style>
 </head>
