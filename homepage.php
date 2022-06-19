@@ -122,7 +122,7 @@ if ($_SESSION['user_type'] == '管理員') {
 			width: 45rem;
 			padding: 2rem;
 			margin: auto;
-			margin-top: <?= $topMargin ?>;
+			margin-top: 27rem;
 
 		}
 
@@ -215,12 +215,14 @@ if ($_SESSION['user_type'] == '管理員') {
 				margin-top: -0.5rem;
 			}
 		}
-		@media screen and (min-width:1420px){
-			.topBar{
+
+		@media screen and (min-width:1420px) {
+			.topBar {
 				position: absolute;
 				right: 0rem;
 			}
-			.admin{
+
+			.admin {
 				position: relative;
 				top: 8rem;
 			}
@@ -245,7 +247,7 @@ if ($_SESSION['user_type'] == '管理員') {
 		<ul class="admin">
 			<li><a href="./taskManage.php">管理案件</a></li>
 			<li><a href="./userManage.php">管理使用者</a></li>
-			<li><a href="#">管理公司</a></li>
+			<li><a href="./companyManage.php">管理款項</a></li>
 		</ul>
 	</nav>
 

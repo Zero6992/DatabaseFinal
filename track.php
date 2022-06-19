@@ -53,7 +53,7 @@ $result = $conn->query($sql);
 
 		.inMid {
 
-			margin-top: <?= $topMargin ?>;
+			margin-top: 27rem;
 		}
 
 		.textArea {
@@ -68,14 +68,15 @@ $result = $conn->query($sql);
 			width: 95%;
 			outline: none;
 		}
-		@media screen and (max-width:1290px) {
-			.board{
+
+		@media screen and (max-width:1240px) {
+			.board {
 				margin-top: 4rem;
 			}
 
 		}
 
-		@media screen and (max-width:585px) {
+		@media screen and (max-width:610px) {
 			.board {
 				margin-top: 8rem;
 
@@ -114,7 +115,7 @@ $result = $conn->query($sql);
 			<ul class="admin">
 				<li><a href="./taskManage.php">管理案件</a></li>
 				<li><a href="./userManage.php">管理使用者</a></li>
-				<li><a href="#">管理公司</a></li>
+				<li><a href="./companyManage.php">管理款項</a></li>
 			</ul>
 		</nav>
 	</div>

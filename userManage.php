@@ -1,16 +1,17 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 
 // 是否為管理員
 $admin = require('isAdmin.php');
 $topMargin = '20rem';
-if ($_SESSION['user_type'] == '管理員') {
+if ($_SESSION["user_type"] === '管理員') {
 	$topMargin = '27rem';
+}else{
+	function_notPermisson("權限不足!返回首頁!");
 }
-
 //一頁幾筆
-define("PAGE_LIMIT", 5);
+define("PAGE_LIMIT", 7);
 
 // 將參數存為陣列，好處理
 $urlParams = [];
@@ -29,11 +30,15 @@ if (!empty($urlParams['searchText'])) {
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'location':
+		case 'name':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'problem':
+		case 'mail':
+			$sqlMethod = 'like';
+			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
+			break;
+		case 'account':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
@@ -123,6 +128,15 @@ function function_alert($message)
 	return false;
 }
 
+
+ function function_notPermisson($message)
+ {
+     // Display the alert box  
+     echo "<script>alert('$message');
+      window.location.href='homepage.php';
+     </script>";
+     return false;
+ }
 ?>
 
 <!DOCTYPE html>
@@ -464,6 +478,7 @@ function function_alert($message)
 		.searchGroup {
 			top: <?= $topMargin ?>;
 		}
+
 		@media screen and (min-width:1420px) {
 			.topBar {
 				position: absolute;
@@ -473,6 +488,17 @@ function function_alert($message)
 			.admin {
 				position: relative;
 				top: 7.8rem;
+			}
+		}
+
+		@media screen and (max-width:880px) {
+			.searchGroup {
+				top: 35rem;
+				right: -1.3rem;
+			}
+
+			.action input {
+				width: 90%;
 			}
 		}
 	</style>
@@ -495,7 +521,7 @@ function function_alert($message)
 			<ul class="admin">
 				<li><a href="./taskManage.php">管理案件</a></li>
 				<li><a href="./userManage.php">管理使用者</a></li>
-				<li><a href="#">管理公司</a></li>
+				<li><a href="./companyManage.php">管理款項</a></li>
 			</ul>
 		</nav>
 	</div>
@@ -530,7 +556,7 @@ function function_alert($message)
 		</thead>
 		<tbody>
 			<?php while ($board = $result->fetch_assoc()) : ?>
-				<form action="./edituser.php?id=<?php print $board['user_id'] ?>" method="post" name="taskAction">
+				<form action="./editUser.php?id=<?php print $board['user_id'] ?>" method="post" name="taskAction">
 					<tr align="center">
 						<td class="boardInput" name="user_id"><?php echo $board['user_id'] ?></td>
 						<td class="boardInput">
@@ -550,11 +576,11 @@ function function_alert($message)
 
 						<td class="action_td">
 							<div class="action">
-								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="edituser()">
+								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="return confirm('確認要編輯此使用者?')">
 							</div>
 				</form>
-				<form action="./deleteuser.php?id=<?php print $board['user_id'] ?>" method="post" name="userAction" class="action">
-					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除?')">
+				<form action="./deleteUser.php?id=<?php print $board['user_id'] ?>" method="post" name="userAction" class="action">
+					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除此使用者?(會連同回報任務一併刪除!!)')">
 				</form>
 				</td>
 				</tr>
@@ -577,11 +603,6 @@ function function_alert($message)
 	<script>
 		function submitForm() {
 			document.forms[0].submit();
-		}
-
-
-		function edituser() {
-			document.userAction.action = "./edituser.php"
 		}
 	</script>
 

@@ -83,16 +83,16 @@ session_start();
 		<h1 class="bigTitle">師大環境通報系統註冊</h1>
 
 		<p>姓名</p>
-		<input class="inputText" placeholder="請輸入姓名......" type="text" name="userName" />
+		<input class="inputText" placeholder="請輸入姓名......(20字以內)" type="text" name="userName" />
 
 		<p>信箱</p>
 		<input class="inputText" placeholder="請輸入信箱......" type="text" name="userMail"/>
 
 		<p>帳號</p>
-		<input class="inputText" placeholder="請輸入帳號......" type="text" name="userAccount" />
+		<input class="inputText" placeholder="請輸入帳號......(20字以內)" type="text" name="userAccount" />
 
 		<p>密碼</p>
-		<input class="inputText" placeholder="請輸入密碼......"  type="password" name="userPassword" />
+		<input class="inputText" placeholder="請輸入密碼......(20字以內)"  type="password" name="userPassword" />
 
 		<p>
 			<input style="margin-right: 1rem" class="button" type="submit" value="註冊" onclick="SignUpDone()" />

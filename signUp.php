@@ -40,7 +40,7 @@ if (empty($_POST['userName']) || empty($_POST['userMail']) || empty($_POST['user
 	if ($conn->query($insert_sql) === TRUE) {
 		function_sucess("註冊成功!!");
 	} else {
-		function_alert("該帳號或信箱已有人使用!");
+		function_alert("註冊失敗!!該帳號或信箱已有人使用或格式錯誤!!");
 	}
 
 }

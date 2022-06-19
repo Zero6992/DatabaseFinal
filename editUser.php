@@ -3,21 +3,18 @@ session_start();
 $conn=require('config.php');
 
 $id = $_GET['id'];
-$task_type = $_POST['task_type'];
-$task_status = $_POST['task_status'];
-// 存進資料庫為數字
-if ($task_status == '處理中') {
-	$task_status = 1;
-} else if ($task_status == '已處理') {
-	$task_status = 2;
-} else {
-	$task_status = 0;
-}
+$user_type = $_POST['user_type'];
+$name= $_POST['name'];
+$mail = $_POST['mail'];
+$account = $_POST['account'];
+
 // 更新SQL
 $sql = sprintf(
-	"UPDATE task SET task_type = '%s', flag = %d WHERE task_id = %d",
-	$task_type,
-	$task_status,
+	"UPDATE user SET user_type = '%s', name = '%s', mail = '%s', account = '%s'  WHERE user_id = %d",
+	$user_type,
+	$name,
+	$mail,
+	$account,
 	$id
 );
 
@@ -33,7 +30,7 @@ function function_alert($message)
 	// Display the alert box  
 	echo "<script>
 	 alert('$message');
-     window.location.href='taskManage.php';
+     window.location.href='userManage.php';
     </script>";
 	return false;
 }

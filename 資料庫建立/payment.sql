@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- 傾印  資料表 project.payment 結構
+-- 傾印  資料表 team10.payment 結構
 CREATE TABLE IF NOT EXISTS `payment` (
   `payment_id` int(11) NOT NULL AUTO_INCREMENT,
   `amount` int(11) DEFAULT NULL,
@@ -25,9 +25,14 @@ CREATE TABLE IF NOT EXISTS `payment` (
   KEY `company_id` (`company_id`),
   CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `task_id` FOREIGN KEY (`task_id`) REFERENCES `task` (`task_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- 取消選取資料匯出。
+-- 正在傾印表格  team10.payment 的資料：~0 rows (近似值)
+INSERT IGNORE INTO `payment` (`payment_id`, `amount`, `task_id`, `company_id`) VALUES
+	(1, 10000, 16, 5),
+	(2, 2000, 10, 3),
+	(3, 4000, 23, 4),
+	(4, 30000, 9, 5);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

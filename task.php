@@ -207,7 +207,7 @@ function function_alert($message)
 			<ul class="admin">
 				<li><a href="./taskManage.php">管理案件</a></li>
 				<li><a href="./userManage.php">管理使用者</a></li>
-				<li><a href="#">管理公司</a></li>
+				<li><a href="./companyManage.php">管理款項</a></li>
 			</ul>
 		</nav>
 	</div>

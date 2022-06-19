@@ -14,7 +14,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- 傾印  資料表 project.company 結構
+-- 傾印  資料表 team10.company 結構
 CREATE TABLE IF NOT EXISTS `company` (
   `company_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT '0',
@@ -22,9 +22,16 @@ CREATE TABLE IF NOT EXISTS `company` (
   `phone` varchar(20) DEFAULT '0',
   `bank_account` varchar(20) DEFAULT '0',
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
--- 取消選取資料匯出。
+-- 正在傾印表格  team10.company 的資料：~0 rows (近似值)
+INSERT IGNORE INTO `company` (`company_id`, `name`, `mail`, `phone`, `bank_account`) VALUES
+	(1, '台北清潔隊', 'test@gmil.com', '27208889', '123456789'),
+	(3, '公園路燈工程管理處', '23815132', 'pkl.gov.taipe', '14969226'),
+	(4, '環境保護局', 'https://www.dep.gov.taipei/', '27208889', '169117070'),
+	(5, '久泰資源回收有限公司', 'jiutai168@gmail.com', '0961191199', '1961191199'),
+	(6, 'test1', 'ts2', 'ts3', 'ts4'),
+	(7, '10', '011', '0111', '0111');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

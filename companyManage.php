@@ -1,38 +1,31 @@
 <?php
 session_start();
-$conn = require('config.php');
-// 設定一頁幾筆
-define("PAGE_LIMIT", 5);
+$conn=require('config.php');
 
 // 是否為管理員
 $admin = require('isAdmin.php');
 $topMargin = '20rem';
-
-if ($_SESSION["user_type"] === '管理員') {
+if ($_SESSION['user_type'] == '管理員') {
 	$topMargin = '27rem';
 }
+
+//一頁幾筆
+define("PAGE_LIMIT", 7);
 
 // 將參數存為陣列，好處理
 $urlParams = [];
 parse_str($_SERVER['QUERY_STRING'], $urlParams);
 
-
-
-
-
-
 //處理搜尋
 $sqlMethod = '';
-
-
 
 // 讀取所有資料
 if (!empty($urlParams['searchText'])) {
 	switch ($urlParams['searchType']) {
-		case 'task_ID':
+		case 'company_ID':
 			$sqlMethod = '=';
 			break;
-		case 'task_type':
+		case 'name':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
@@ -48,7 +41,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 分頁數
 	$sql_count = sprintf(
-		"SELECT count(*) AS totalRows from `team10`.`task` where %s %s %s",
+		"SELECT count(*) AS totalRows from `team10`.`company` where %s %s %s",
 		$urlParams['searchType'],
 		$sqlMethod,
 		$urlParams['searchText']
@@ -57,7 +50,7 @@ if (!empty($urlParams['searchText'])) {
 	$sth_count = $conn->query($sql_count);
 	if (empty($sth_count)) {
 		// 分頁數
-		$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task`";
+		$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`company`";
 		$sth_count = $conn->query($sql_count);
 		$result_count = $sth_count->fetch_assoc();
 		$totalRows = $result_count['totalRows'];
@@ -68,12 +61,16 @@ if (!empty($urlParams['searchText'])) {
 		$previousPage = (($page - 1) < 1) ? 1 : ($page - 1);
 		$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
-		// 讀取所有資料
+		// 讀取所有資料 NATURAL JOIN company 跟 payment
 		$sql =  sprintf(
-			"select * from `team10`.`task` LIMIT %s, %s",
+			"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account 
+			FROM `company` NATURAL JOIN `payment` 
+			GROUP BY company_id 
+			LIMIT %s, %s",
 			($page - 1) * PAGE_LIMIT,
 			PAGE_LIMIT
 		);
+
 		function_alert("查無資料!");
 		$result = $conn->query($sql);
 	} else {
@@ -87,7 +84,7 @@ if (!empty($urlParams['searchText'])) {
 		$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
 		$sql =  sprintf(
-			"select * from `team10`.`task` where %s %s %s LIMIT %s, %s",
+			"select * from `team10`.`company` where %s %s %s LIMIT %s, %s",
 			$urlParams['searchType'],
 			$sqlMethod,
 			$urlParams['searchText'],
@@ -100,7 +97,7 @@ if (!empty($urlParams['searchText'])) {
 } else {
 
 	// 分頁數
-	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`task`";
+	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`company`";
 	$sth_count = $conn->query($sql_count);
 	$result_count = $sth_count->fetch_assoc();
 	$totalRows = $result_count['totalRows'];
@@ -113,7 +110,10 @@ if (!empty($urlParams['searchText'])) {
 
 	// 讀取所有資料
 	$sql =  sprintf(
-		"select * from `team10`.`task` LIMIT %s, %s",
+		"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account 
+			FROM `company` NATURAL JOIN `payment` 
+			GROUP BY company_id 
+			LIMIT %s, %s",
 		($page - 1) * PAGE_LIMIT,
 		PAGE_LIMIT
 	);
@@ -129,7 +129,6 @@ function function_alert($message)
     </script>";
 	return false;
 }
-
 
 ?>
 
@@ -357,6 +356,9 @@ function function_alert($message)
 			font-weight: 400;
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			padding: 0.8rem;
+			color: #fff;
+			border: none;
+			background-color: rgb(39, 34, 34);
 		}
 
 		.textArea {
@@ -370,7 +372,6 @@ function function_alert($message)
 			float: left;
 			width: 95%;
 			outline: none;
-			cursor: default;
 		}
 
 		.inputText {
@@ -409,12 +410,9 @@ function function_alert($message)
 			border-radius: 10px;
 			cursor: pointer;
 			width: 100%;
-			height: 80%;
+			height: 90%;
 			margin: 0.3rem;
-
 		}
-
-		.action input:hover {}
 
 		.status {
 			display: inline-block;
@@ -473,7 +471,6 @@ function function_alert($message)
 		.searchGroup {
 			top: <?= $topMargin ?>;
 		}
-
 		@media screen and (min-width:1420px) {
 			.topBar {
 				position: absolute;
@@ -485,8 +482,7 @@ function function_alert($message)
 				top: 7.8rem;
 			}
 		}
-
-		@media screen and (max-width:880px) {
+		@media screen and (max-width:630px) {
 			.searchGroup {
 				top: 35rem;
 				right: -1.3rem;
@@ -520,15 +516,15 @@ function function_alert($message)
 		</nav>
 	</div>
 
-	<form action="taskManage.php" method="get">
+	<form action="companyManage.php" method="get">
 		<div class="searchGroup">
 
 			<div class="searchBar">
 				<select class="searchSelection" name="searchType">
-					<option value="task_ID">案件ID</option>
-					<option value="task_type">案件類別</option>
-					<option value="location">地點</option>
-					<option value="problem">案件簡述</option>
+					<option value="name">公司名稱</option>
+					<option value="mail">公司信箱</option>
+					<option value="phne">公司電話</option>
+					<option value="bank_account">銀行帳號</option>
 				</select>
 				<div class="container-1">
 					<span class="submit" name="submit" type="submit" onClick="submitForm()"><i class="fa fa-search"></i></span>
@@ -539,72 +535,32 @@ function function_alert($message)
 	<table width="100%" class="board">
 		<thead>
 			<tr align="center">
-				<td class="boardTitle">案件ID</td>
-				<td class="boardTitle">案件類別</td>
-				<td class="boardTitle">地點</td>
-				<td class="boardTitle">狀態</td>
-				<td class="boardTitle">通報人ID</td>
-				<td class="boardTitle">案件簡述</td>
+				<td class="boardTitle">公司名稱</td>
+				<td class="boardTitle">公司信箱</td>
+				<td class="boardTitle">公司電話</td>
+				<td class="boardTitle">銀行帳號</td>
+				<td class="boardTitle">未支付帳款</td>
 				<td class="boardTitle">管理</td>
 			</tr>
 		</thead>
 		<tbody>
 			<?php while ($board = $result->fetch_assoc()) : ?>
-				<form action="./editTask.php?id=<?php print $board['task_id'] ?>" method="post" name="taskAction">
-					<?php
-					if ($board['flag'] == 0) {
-						$board['flag'] = '未處理';
-					} else if ($board['flag'] == 1) {
-						$board['flag'] = '處理中';
-					} else if ($board['flag'] == 2) {
-						$board['flag'] = '已處理';
-					} ?>
+				<form action="./editcompany.php?id=<?php print $board['company_id'] ?>" method="post" name="taskAction">
 					<tr align="center">
-						<td class="boardInput" name="task_ID"><?php echo $board['task_id'] ?></td>
-						<td class="boardInput">
-							<select class="inputText" name="task_type">
-								<option value="廢棄物" <?php if ($board['task_type'] == '廢棄物') {
-														print 'selected';
-													} ?>>廢棄物</option>
-								<option value="落葉" <?php if ($board['task_type'] == '落葉') {
-														print 'selected';
-													} ?>>落葉</option>
-								<option value="髒污清潔" <?php if ($board['task_type'] == '髒污清潔') {
-															print 'selected';
-														} ?>>髒污清潔</option>
-								<option value="器物損壞" <?php if ($board['task_type'] == '器物損壞') {
-															print 'selected';
-														} ?>>器物損壞</option>
-								<option value="其他" <?php if ($board['task_type'] == '其他') {
-														print 'selected';
-													} ?>>其他</option>
-							</select>
-						</td>
+						<td class="boardInput" name="company_id"><?php echo $board['name'] ?></td>
+						<td class="boardInput" name="company_id"><?php echo $board['mail'] ?></td>
 
-						<td class="boardInput" name="location"><?php print $board['location'] ?></td>
-						<td class="status">
-							<select class="inputText" name="task_status">
-								<option value="未處理" <?php if ($board['flag'] == '未處理') {
-														print 'selected';
-													} ?>>未處理</option>
-								<option value="處理中" <?php if ($board['flag'] == '處理中') {
-														print 'selected';
-													} ?>>處理中</option>
-								<option value="已處理" <?php if ($board['flag'] == '已處理') {
-														print 'selected';
-													} ?>>已處理</option>
-							</select>
-						</td>
-						<td class="boardInput" name="user_ID"><?php print $board['user_id'] ?></td>
-						<td class="boardInput" name="problem"><textarea class="textArea" readonly="true" rows="2" cols="10"><?php print $board['problem'] ?></textarea> </td>
+						<td><input class="boardInput" name="name" value=<?php print $board['name'] ?>></td>
+						<td><input class="boardInput" name="mail" value=<?php print $board['bank_account'] ?>></td>
+						<td><input class="boardInput" name="amount" value=<?php print $board['amount'] ?>></td>
 
 						<td class="action_td">
 							<div class="action">
-								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="return confirm('確認要編輯此任務?')">
+								<input value="編輯" class="fa fa-pencil" type="submit" aria-hidden="true" onclick="return confirm('確認要編輯此使用者?')">
 							</div>
 				</form>
-				<form action="./deleteTask.php?id=<?php print $board['task_id'] ?>" method="post" name="taskAction" class="action">
-					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除此任務?')">
+				<form action="./deletecompany.php?id=<?php print $board['company_id'] ?>" method="post" name="companyAction" class="action">
+					<input value="刪除" class="fa fa-trash-o" type="submit" aria-hidden="true" onclick="return confirm('確認要刪除此使用者?')">
 				</form>
 				</td>
 				</tr>
@@ -613,11 +569,11 @@ function function_alert($message)
 	</table>
 	<nav>
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="taskManage.php?page=<?php print $previousPage ?>">前一頁</a></li>
+			<li class="page-item"><a class="page-link" href="companyManage.php?page=<?php print $previousPage ?>">前一頁</a></li>
 			<?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-				<li class="page-item<?php if ($page == $i) print 'active' ?>"><a class="page-link" href="taskManage.php?page=<?php print $i ?>"><?php print $i ?></a></li>
+				<li class="page-item<?php if ($page == $i) print 'active' ?>"><a class="page-link" href="companyManage.php?page=<?php print $i ?>"><?php print $i ?></a></li>
 			<?php endfor ?>
-			<li class="page-item"><a class="page-link" href="taskManage.php?page=<?php print $nextPage ?>">下一頁</a></li>
+			<li class="page-item"><a class="page-link" href="companyManage.php?page=<?php print $nextPage ?>">下一頁</a></li>
 		</ul>
 	</nav>
 
@@ -630,9 +586,7 @@ function function_alert($message)
 		}
 
 
-		function editTask() {
-			document.taskAction.action = "./editTask.php"
-		}
+
 	</script>
 
 </body>
