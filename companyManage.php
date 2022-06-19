@@ -45,7 +45,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 分頁數
 	$sql_count = sprintf(
-		"SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment` where %s %s %s",
+		"SELECT count(DISTINCT company_id) AS totalRows FROM `company` NATURAL JOIN `payment` where %s %s %s",
 		$urlParams['searchType'],
 		$sqlMethod,
 		$urlParams['searchText']
@@ -54,7 +54,7 @@ if (!empty($urlParams['searchText'])) {
 	$sth_count = $conn->query($sql_count);
 	if (empty($sth_count)) {
 		// 分頁數
-		$sql_count = "SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment`";
+		$sql_count = "SELECT count(DISTINCT company_id) AS totalRows FROM `company` NATURAL JOIN `payment` ";
 		$sth_count = $conn->query($sql_count);
 		$result_count = $sth_count->fetch_assoc();
 		$totalRows = $result_count['totalRows'];
@@ -100,7 +100,7 @@ if (!empty($urlParams['searchText'])) {
 } else {
 
 	// 分頁數
-	$sql_count = "SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment` ";
+	$sql_count = "SELECT count(DISTINCT company_id) AS totalRows FROM `company` NATURAL JOIN `payment` ";
 	$sth_count = $conn->query($sql_count);
 	$result_count = $sth_count->fetch_assoc();
 	$totalRows = $result_count['totalRows'];

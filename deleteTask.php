@@ -3,6 +3,7 @@ session_start();
 if ($_SESSION["user_type"] !== '管理員') {
 	function_notPermisson("權限不足!返回首頁!");
 } else {
+	$conn = require('config.php');
 	$id = $_GET['id'];
 	$sql = sprintf(
 		"DELETE from task WHERE task_id = %d",
@@ -16,7 +17,7 @@ if ($_SESSION["user_type"] !== '管理員') {
 		function_alert('刪除成功!!');
 	}
 }
-$conn = require('config.php');
+
 
 
 
