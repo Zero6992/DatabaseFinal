@@ -118,6 +118,7 @@ if (!empty($urlParams['searchText'])) {
 		PAGE_LIMIT
 	);
 	$result = $conn->query($sql);
+	
 }
 
 

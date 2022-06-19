@@ -23,7 +23,7 @@ $sqlMethod = '';
 // 讀取所有資料
 if (!empty($urlParams['searchText'])) {
 	switch ($urlParams['searchType']) {
-		case 'user_ID':
+		case 'user_id':
 			$sqlMethod = '=';
 			break;
 		case 'user_type':

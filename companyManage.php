@@ -1,12 +1,15 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 
 // 是否為管理員
+
 $admin = require('isAdmin.php');
 $topMargin = '20rem';
-if ($_SESSION['user_type'] == '管理員') {
+if ($_SESSION["user_type"] === '管理員') {
 	$topMargin = '27rem';
+}else{
+	function_notPermisson("權限不足!返回首頁!");
 }
 
 //一頁幾筆
@@ -22,18 +25,19 @@ $sqlMethod = '';
 // 讀取所有資料
 if (!empty($urlParams['searchText'])) {
 	switch ($urlParams['searchType']) {
-		case 'company_ID':
-			$sqlMethod = '=';
-			break;
 		case 'name':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'location':
+		case 'mail':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
-		case 'problem':
+		case 'phone':
+			$sqlMethod = 'like';
+			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
+			break;
+		case 'bank_account':
 			$sqlMethod = 'like';
 			$urlParams['searchText'] = "'%" . $urlParams['searchText'] . "%'";
 			break;
@@ -41,7 +45,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 分頁數
 	$sql_count = sprintf(
-		"SELECT count(*) AS totalRows from `team10`.`company` where %s %s %s",
+		"SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment` where %s %s %s",
 		$urlParams['searchType'],
 		$sqlMethod,
 		$urlParams['searchText']
@@ -50,7 +54,7 @@ if (!empty($urlParams['searchText'])) {
 	$sth_count = $conn->query($sql_count);
 	if (empty($sth_count)) {
 		// 分頁數
-		$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`company`";
+		$sql_count = "SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment`";
 		$sth_count = $conn->query($sql_count);
 		$result_count = $sth_count->fetch_assoc();
 		$totalRows = $result_count['totalRows'];
@@ -61,16 +65,12 @@ if (!empty($urlParams['searchText'])) {
 		$previousPage = (($page - 1) < 1) ? 1 : ($page - 1);
 		$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
-		// 讀取所有資料 NATURAL JOIN company 跟 payment
+		// 讀取所有資料
 		$sql =  sprintf(
-			"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account 
-			FROM `company` NATURAL JOIN `payment` 
-			GROUP BY company_id 
-			LIMIT %s, %s",
+			"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account FROM `company` NATURAL JOIN `payment` GROUP BY company_id LIMIT %s, %s",
 			($page - 1) * PAGE_LIMIT,
 			PAGE_LIMIT
 		);
-
 		function_alert("查無資料!");
 		$result = $conn->query($sql);
 	} else {
@@ -84,7 +84,10 @@ if (!empty($urlParams['searchText'])) {
 		$nextPage = (($page + 1) > $totalPages) ? $totalPages : ($page + 1);
 
 		$sql =  sprintf(
-			"select * from `team10`.`company` where %s %s %s LIMIT %s, %s",
+			"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account 
+			FROM `company` NATURAL JOIN `payment` 
+			where %s %s %s 
+			LIMIT %s, %s",
 			$urlParams['searchType'],
 			$sqlMethod,
 			$urlParams['searchText'],
@@ -97,7 +100,7 @@ if (!empty($urlParams['searchText'])) {
 } else {
 
 	// 分頁數
-	$sql_count = "SELECT count(*) AS totalRows FROM `team10`.`company`";
+	$sql_count = "SELECT count(*) AS totalRows FROM `company` NATURAL JOIN `payment` ";
 	$sth_count = $conn->query($sql_count);
 	$result_count = $sth_count->fetch_assoc();
 	$totalRows = $result_count['totalRows'];
@@ -110,10 +113,7 @@ if (!empty($urlParams['searchText'])) {
 
 	// 讀取所有資料
 	$sql =  sprintf(
-		"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account 
-			FROM `company` NATURAL JOIN `payment` 
-			GROUP BY company_id 
-			LIMIT %s, %s",
+		"SELECT company_id, SUM(amount) AS amount, name, mail, phone, bank_account FROM `company` NATURAL JOIN `payment` GROUP BY company_id  LIMIT %s, %s",
 		($page - 1) * PAGE_LIMIT,
 		PAGE_LIMIT
 	);
@@ -126,10 +126,18 @@ function function_alert($message)
 
 	// Display the alert box  
 	echo "<script>alert('$message');
+	window.location.href='companyManage.php';
     </script>";
 	return false;
 }
-
+function function_notPermisson($message)
+{
+	// Display the alert box  
+	echo "<script>alert('$message');
+	 window.location.href='homepage.php';
+	</script>";
+	return false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -471,6 +479,7 @@ function function_alert($message)
 		.searchGroup {
 			top: <?= $topMargin ?>;
 		}
+
 		@media screen and (min-width:1420px) {
 			.topBar {
 				position: absolute;
@@ -482,11 +491,13 @@ function function_alert($message)
 				top: 7.8rem;
 			}
 		}
+
 		@media screen and (max-width:630px) {
 			.searchGroup {
 				top: 35rem;
 				right: -1.3rem;
 			}
+
 			.action input {
 				width: 90%;
 			}
@@ -523,7 +534,7 @@ function function_alert($message)
 				<select class="searchSelection" name="searchType">
 					<option value="name">公司名稱</option>
 					<option value="mail">公司信箱</option>
-					<option value="phne">公司電話</option>
+					<option value="phone">公司電話</option>
 					<option value="bank_account">銀行帳號</option>
 				</select>
 				<div class="container-1">
@@ -547,12 +558,12 @@ function function_alert($message)
 			<?php while ($board = $result->fetch_assoc()) : ?>
 				<form action="./editcompany.php?id=<?php print $board['company_id'] ?>" method="post" name="taskAction">
 					<tr align="center">
-						<td class="boardInput" name="company_id"><?php echo $board['name'] ?></td>
-						<td class="boardInput" name="company_id"><?php echo $board['mail'] ?></td>
+						<td class="boardInput" name="name"><?php echo $board['name'] ?></td>
+						<td> <input class="boardInput" name="mail" value=<?php echo $board['mail'] ?>></td>
 
-						<td><input class="boardInput" name="name" value=<?php print $board['name'] ?>></td>
-						<td><input class="boardInput" name="mail" value=<?php print $board['bank_account'] ?>></td>
-						<td><input class="boardInput" name="amount" value=<?php print $board['amount'] ?>></td>
+						<td><input class="boardInput" name="phone" value=<?php print $board['phone'] ?>></td>
+						<td><input class="boardInput" name="bank_account" value=<?php print $board['bank_account'] ?>></td>
+						<td class="boardInput" name="amount"><?php print $board['amount'] ?></td>
 
 						<td class="action_td">
 							<div class="action">
@@ -584,9 +595,6 @@ function function_alert($message)
 		function submitForm() {
 			document.forms[0].submit();
 		}
-
-
-
 	</script>
 
 </body>
