@@ -26,7 +26,3 @@ function function_alert($message)
     </script>";
 	return false;
 }
-
-
-
-?>

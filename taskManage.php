@@ -2,7 +2,7 @@
 session_start();
 $conn = require('config.php');
 // 設定一頁幾筆
-define("PAGE_LIMIT", 5);
+define("PAGE_LIMIT", 3);
 
 // 是否為管理員
 $admin = require('isAdmin.php');
@@ -118,7 +118,6 @@ if (!empty($urlParams['searchText'])) {
 		PAGE_LIMIT
 	);
 	$result = $conn->query($sql);
-	
 }
 
 
@@ -126,7 +125,7 @@ function function_alert($message)
 {
 
 	// Display the alert box  
-	echo "<script>alert('$message');
+	echo "<script>alert('$message');f
     </script>";
 	return false;
 }
@@ -492,6 +491,7 @@ function function_alert($message)
 				top: 35rem;
 				right: -1.3rem;
 			}
+
 			.action input {
 				width: 90%;
 			}
@@ -521,7 +521,7 @@ function function_alert($message)
 		</nav>
 	</div>
 
-	<form action="taskManage.php" method="get">
+	<form action="<?php echo $url; ?>" method="get">
 		<div class="searchGroup">
 
 			<div class="searchBar">
@@ -614,11 +614,11 @@ function function_alert($message)
 	</table>
 	<nav>
 		<ul class="pagination">
-			<li class="page-item"><a class="page-link" href="taskManage.php?page=<?php print $previousPage ?>">前一頁</a></li>
+			<li class="page-item"><a class="page-link" href="<?php echo $url; ?>?&page=<?php print $previousPage ?>">前一頁</a></li>
 			<?php for ($i = 1; $i <= $totalPages; $i++) : ?>
-				<li class="page-item<?php if ($page == $i) print 'active' ?>"><a class="page-link" href="taskManage.php?page=<?php print $i ?>"><?php print $i ?></a></li>
+				<li class="page-item<?php if ($page == $i) print 'active' ?>"><a class="page-link" href="<?php echo $url; ?>?&page=<?php print $i ?>"><?php print $i ?></a></li>
 			<?php endfor ?>
-			<li class="page-item"><a class="page-link" href="taskManage.php?page=<?php print $nextPage ?>">下一頁</a></li>
+			<li class="page-item"><a class="page-link" href="<?php echo $url; ?>?&page=<?php print $nextPage ?>">下一頁</a></li>
 		</ul>
 	</nav>
 

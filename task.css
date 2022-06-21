@@ -54,7 +54,8 @@ body {
     border-bottom: solid rgba(10, 25, 77, 0.3) 0.2rem;
 
 }
-.topBar a{
+
+.topBar a {
     color: #127a7a;
 }
 
@@ -84,7 +85,7 @@ body {
     text-decoration: none;
     border-color: #ffffff;
     cursor: pointer;
-    font-size: 1em;	
+    font-size: 1em;
     background-image: linear-gradient(45deg, transparent 50%, #000000 50%);
     background-position: 25%;
     background-size: 400%;
@@ -106,8 +107,8 @@ body {
     display: inline-flex;
     float: right;
     margin-bottom: 0.2rem;
-    
-    
+
+
 
 }
 
@@ -133,6 +134,7 @@ body {
     transition: 1s;
 
 }
+
 .searchSelection:focus {
     color: #fff;
     background-color: rgb(39, 34, 34);
@@ -178,7 +180,7 @@ body {
     cursor: pointer;
     padding-left: 1rem;
     border-left: 2px solid rgba(105, 177, 177, 0.3);
-    
+
     position: absolute;
     top: 33%;
     margin-left: 14.3rem;
@@ -187,7 +189,7 @@ body {
 }
 
 .board {
-    
+
     overflow: auto;
     background-color: rgb(39, 34, 34);
     border-radius: 30px;
@@ -229,37 +231,42 @@ body {
     margin: 15%;
 
 }
-.page-item{
+
+.page-item {
     font-size: 1.2rem;
     font-weight: bold;
     border: solid black 0.2rem;
     display: inline-block;
     padding: 1.1rem 1.3rem;
 }
-.page-item:hover{
+
+.page-item:hover {
     background-color: rgb(39, 34, 34);
     color: #fff;
     transition: 1s;
 }
-.page-itemactive{
+
+.page-itemactive {
     font-size: 1.2rem;
     font-weight: bold;
     border: solid black 0.2rem;
     display: inline-block;
     padding: 1.1rem 1.3rem;
     background-color: rgb(39, 34, 34);
-   
+
     transition: 1s;
 }
-.page-itemactive a{
+
+.page-itemactive a {
     color: #fff;
 }
-.page-link{
+
+.page-link {
     text-align: center;
     color: black;
     text-decoration: none
 }
-.page-link:hover{
+
+.page-link:hover {
     color: #fff;
 }
-

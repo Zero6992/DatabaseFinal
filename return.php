@@ -1,6 +1,6 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 
 if (empty($_POST['task_type']) || empty($_POST['location']) || empty($_POST['time']) || empty($_POST['problem'])) {
 	function_alert('資料不完全!!!');
@@ -31,3 +31,4 @@ function function_alert($message)
     </script>";
 	return false;
 }
+?>

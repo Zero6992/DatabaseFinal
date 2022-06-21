@@ -67,9 +67,9 @@
 		.button:hover {
 			color: #e76f45;
 			background-color: aliceblue;
-			box-shadow: 4px 3px 4px  rgb(139, 28, 28);
+			box-shadow: 4px 3px 4px rgb(139, 28, 28);
 			transition: 1s;
-			cursor:pointer;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -97,9 +97,10 @@
 		function signIn() {
 			document.signInForm.action = "./signIn.php"
 		}
+
 		function signUp() {
 			document.signInForm.action = "./register.php"
-	
+
 		}
 	</script>
 

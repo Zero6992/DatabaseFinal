@@ -1,10 +1,10 @@
 <?php
 session_start();
-$conn=require('config.php');
+$conn = require('config.php');
 
 $id = $_GET['id'];
 $user_type = $_POST['user_type'];
-$name= $_POST['name'];
+$name = $_POST['name'];
 $mail = $_POST['mail'];
 $account = $_POST['account'];
 
@@ -22,7 +22,7 @@ $result = $conn->query($sql);
 if (!$result) {
 	function_alert('更新失敗!!');
 } else {
-	 function_alert('更新成功!!');
+	function_alert('更新成功!!');
 }
 
 function function_alert($message)

@@ -8,7 +8,7 @@ $admin = require('isAdmin.php');
 $topMargin = '20rem';
 if ($_SESSION["user_type"] === '管理員') {
 	$topMargin = '27rem';
-}else{
+} else {
 	function_notPermisson("權限不足!返回首頁!");
 }
 

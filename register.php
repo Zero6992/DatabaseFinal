@@ -32,6 +32,7 @@ session_start();
 			padding: 2rem;
 			margin-top: 20rem;
 		}
+
 		.signUpArea p {
 			cursor: default;
 			font-size: 1.4rem;
@@ -71,9 +72,9 @@ session_start();
 		.button:hover {
 			color: #e76f45;
 			background-color: aliceblue;
-			box-shadow: 4px 3px 4px  rgb(139, 28, 28);
+			box-shadow: 4px 3px 4px rgb(139, 28, 28);
 			transition: 1s;
-			cursor:pointer;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -86,13 +87,13 @@ session_start();
 		<input class="inputText" placeholder="請輸入姓名......(20字以內)" type="text" name="userName" />
 
 		<p>信箱</p>
-		<input class="inputText" placeholder="請輸入信箱......" type="text" name="userMail"/>
+		<input class="inputText" placeholder="請輸入信箱......" type="text" name="userMail" />
 
 		<p>帳號</p>
 		<input class="inputText" placeholder="請輸入帳號......(20字以內)" type="text" name="userAccount" />
 
 		<p>密碼</p>
-		<input class="inputText" placeholder="請輸入密碼......(20字以內)"  type="password" name="userPassword" />
+		<input class="inputText" placeholder="請輸入密碼......(20字以內)" type="password" name="userPassword" />
 
 		<p>
 			<input style="margin-right: 1rem" class="button" type="submit" value="註冊" onclick="SignUpDone()" />
@@ -107,10 +108,12 @@ session_start();
 			document.signUpForm.action = "./index.php"
 			document.signInForm.submit()
 		}
-		function SignUpDone(){
+
+		function SignUpDone() {
 			document.signUpForm.action = "./signUp.php"
 			document.signInForm.submit()
 		}
 	</script>
 </body>
+
 </html>

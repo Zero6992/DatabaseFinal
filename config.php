@@ -3,18 +3,18 @@ session_start();
 
 include 'notLogIn.php';
 // ******** update your personal settings ******** 
-/*
+
 $servername = "localhost";
 $username = "root";
-$password = "wendy1102";
+$password = "-";
 $dbname = "team10";
-*/
 
+/*
 $servername = "localhost";
 $username = "team10";
 $password = "Ce8l68";
 $dbname = "team10";
-
+*/
 
 // Connecting to and selecting a MySQL database
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -36,4 +36,3 @@ if (!isset($_SESSION["loggedin"])) {
 
 
 return $conn;
-?>

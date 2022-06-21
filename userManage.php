@@ -7,7 +7,7 @@ $admin = require('isAdmin.php');
 $topMargin = '20rem';
 if ($_SESSION["user_type"] === '管理員') {
 	$topMargin = '27rem';
-}else{
+} else {
 	function_notPermisson("權限不足!返回首頁!");
 }
 //一頁幾筆
@@ -129,14 +129,14 @@ function function_alert($message)
 }
 
 
- function function_notPermisson($message)
- {
-     // Display the alert box  
-     echo "<script>alert('$message');
+function function_notPermisson($message)
+{
+	// Display the alert box  
+	echo "<script>alert('$message');
       window.location.href='homepage.php';
      </script>";
-     return false;
- }
+	return false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -552,6 +552,7 @@ function function_alert($message)
 				<td class="boardTitle">信箱</td>
 				<td class="boardTitle">帳號</td>
 				<td class="boardTitle">管理</td>
+
 			</tr>
 		</thead>
 		<tbody>
